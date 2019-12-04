@@ -1,15 +1,23 @@
-package com.example.minimoneybox
+package com.example.minimoneybox.dagger.modules
 
+import com.example.minimoneybox.HeaderInterceptor
+import com.example.minimoneybox.UserApi
+import dagger.Module
+import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import javax.inject.Singleton
 
 const val BASE_URL = "https://api-test01.moneyboxapp.com"
 
-interface ApiService {
+@Module
+class ApiModule {
 
+    @Provides
+    @Singleton
     fun provideRetrofit(): Retrofit {
         // Debugging purpose to show request and response information
         val logging = HttpLoggingInterceptor()
@@ -28,12 +36,9 @@ interface ApiService {
             .build()
     }
 
+    @Provides
+    @Singleton
     fun provideUserApi(retrofit: Retrofit): UserApi {
         return retrofit.create(UserApi::class.java)
     }
-
-    fun userApi(): UserApi {
-        return provideUserApi(provideRetrofit())
-    }
 }
-

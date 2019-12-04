@@ -1,26 +1,22 @@
-package com.example.minimoneybox
+package com.example.minimoneybox.activity
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.airbnb.lottie.LottieAnimationView
-import com.google.android.material.textfield.TextInputLayout
+import com.example.minimoneybox.R
+import com.example.minimoneybox.UserApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
+import javax.inject.Inject
 
 /**
  * A login screen that offers login via email/password.
  */
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
-    var api = object : ApiService {}
     private val disposables = CompositeDisposable()
+    @Inject lateinit var userApi: UserApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         btn_sign_in.setOnClickListener {
             animation.playAnimation()
             val disposable =
-                api.userApi().logInUser(et_email.text.toString(), et_password.text.toString(), "ANYTHING")
+                userApi.logInUser(et_email.text.toString(), et_password.text.toString(), "ANYTHING")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
