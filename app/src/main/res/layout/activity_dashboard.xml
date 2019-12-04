@@ -7,4 +7,54 @@
         android:layout_height="match_parent"
         tools:context=".activity.DashboardActivity">
 
+    <TextView
+            android:id="@+id/chosenName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+            android:id="@+id/totalPlan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chosenName"/>
+
+    <include
+            android:id="@+id/stockAndShareLayout"
+            layout="@layout/saving_plan_layout"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/totalPlan"/>
+
+    <include
+            android:id="@+id/generalInvestmentAccountLayout"
+            layout="@layout/saving_plan_layout"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stockAndShareLayout"/>
+
+    <include
+            android:id="@+id/lifetimeISALayout"
+            layout="@layout/saving_plan_layout"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/generalInvestmentAccountLayout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
