@@ -3,12 +3,14 @@ package com.example.minimoneybox.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
-import com.example.minimoneybox.User
 import com.example.minimoneybox.UserApi
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.example.minimoneybox.state.UserViewState
+import com.example.minimoneybox.viewmodel.UsersViewModel
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -18,7 +20,15 @@ import javax.inject.Inject
 class LoginActivity : BaseActivity() {
 
     private val disposables = CompositeDisposable()
-    @Inject lateinit var userApi: UserApi
+    @Inject
+    lateinit var userApi: UserApi
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val userViewModel: UsersViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory)
+            .get(UsersViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,24 +39,26 @@ class LoginActivity : BaseActivity() {
     private fun setupViews() {
         btn_sign_in.setOnClickListener {
             animation.playAnimation()
-            val disposable =
-                userApi.logInUser(et_email.text.toString(), et_password.text.toString(), "ANYTHING")
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        {
-                            Toast.makeText(this, it.user.firstName, Toast.LENGTH_SHORT).show()
-                            launchDashboard(it.user)
-                        },
-                        {
-                            Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                            //{"Name":"Login failed","Message":"Incorrect email address or password. Please check and try again.","ValidationErrors":[]}
-                        }
-                    )
-
-            disposables.add(disposable)
+            userViewModel.getUserInformation(et_email.text.toString(), et_password.text.toString())
+            userViewModel.viewState.observe(this, Observer {
+                when (it) {
+                    UserViewState.Loading -> {
+                        Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
+                    }
+                    is UserViewState.ShowUser -> {
+                        Toast.makeText(this, "Launching Dashboard", Toast.LENGTH_SHORT).show()
+                        launchDashboard()
+                    }
+                    is UserViewState.ShowError -> {
+                        // Need to collect errors
+                        //{"Name":"Login failed","Message":"Incorrect email address or password. Please check and try again.","ValidationErrors":[]}
+                        Toast.makeText(this, it.errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         }
 
+        // Long press login button to populate the fields
         btn_sign_in.setOnLongClickListener {
             et_email.setText("androidtest@moneyboxapp.com")
             et_password.setText("P455word12")
@@ -55,10 +67,8 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    private fun launchDashboard(user: User) {
+    private fun launchDashboard() {
         val intent = Intent(this, DashboardActivity::class.java)
-        //TODO: Store user inside a database
-        intent.putExtra("user", user)
         startActivity(intent)
         finish()
     }
