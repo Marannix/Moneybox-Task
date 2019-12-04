@@ -1,8 +1,10 @@
 package com.example.minimoneybox.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.example.minimoneybox.R
+import com.example.minimoneybox.User
 import com.example.minimoneybox.UserApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -32,7 +34,10 @@ class LoginActivity : BaseActivity() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        { Toast.makeText(this, it.user.firstName, Toast.LENGTH_SHORT).show() },
+                        {
+                            Toast.makeText(this, it.user.firstName, Toast.LENGTH_SHORT).show()
+                            launchDashboard(it.user)
+                        },
                         {
                             Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                             //{"Name":"Login failed","Message":"Incorrect email address or password. Please check and try again.","ValidationErrors":[]}
@@ -48,6 +53,14 @@ class LoginActivity : BaseActivity() {
             et_name.setText("Money")
             true
         }
+    }
+
+    private fun launchDashboard(user: User) {
+        val intent = Intent(this, DashboardActivity::class.java)
+        //TODO: Store user inside a database
+        intent.putExtra("user", user)
+        startActivity(intent)
+        finish()
     }
 
     override fun onDestroy() {
