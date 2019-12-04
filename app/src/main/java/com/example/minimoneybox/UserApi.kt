@@ -1,16 +1,17 @@
 package com.example.minimoneybox
 
-import retrofit2.http.POST
-import retrofit2.http.Query
+import io.reactivex.Single
+import retrofit2.http.*
 
 interface UserApi {
 
     // Need to check if this is the correct response
-    @POST("users/login")
+    @POST("users/login/")
+    @FormUrlEncoded
     fun getUser(
-        @Query("Email") email: Int,
-        @Query("Password") password: String,
-        @Query("Idfa") idfa: String
-    )
+        @Field("Email") email: String,
+        @Field("Password") password: String,
+        @Field("Idfa") idfa: String
+    ) : Single<UserResponse>
 
 }
