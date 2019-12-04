@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.minimoneybox.MainApplication
 import com.example.minimoneybox.dagger.modules.ActivityBuilder
 import com.example.minimoneybox.dagger.modules.ApiModule
+import com.example.minimoneybox.dagger.modules.RoomModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -14,6 +15,7 @@ import javax.inject.Singleton
 @Component(
     modules = [ActivityBuilder::class,
         ApiModule::class,
+        RoomModule::class,
         AndroidSupportInjectionModule::class]
 )
 interface ApplicationComponent : AndroidInjector<MainApplication> {
