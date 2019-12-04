@@ -5,10 +5,10 @@ import retrofit2.http.*
 
 interface UserApi {
 
-    // Need to check if this is the correct response
+    // Logs user in
     @POST("users/login/")
     @FormUrlEncoded
-    fun getUser(
+    fun logInUser(
         @Field("Email") email: String,
         @Field("Password") password: String,
         @Field("Idfa") idfa: String
