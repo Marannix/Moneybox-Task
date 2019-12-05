@@ -8,6 +8,7 @@
         android:background="@color/deep_blue"
         tools:context=".activity.DashboardActivity">
 
+    <!-- TODO: Add gutters to make it look nicer on tablet -->
     <TextView
             android:id="@+id/chosenName"
             android:layout_width="0dp"
