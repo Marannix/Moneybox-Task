@@ -11,6 +11,7 @@ import com.example.minimoneybox.repository.UsersRepository
 import com.example.minimoneybox.state.InvestorProductsViewState
 import com.example.minimoneybox.viewmodel.InvestorProductsViewModel
 import com.google.android.material.card.MaterialCardView
+import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.saving_plan_layout.view.*
 import java.util.*
 import javax.inject.Inject
@@ -49,7 +50,7 @@ class DashboardActivity : BaseActivity() {
             val token = intent.getStringExtra("bearerToken")
             productsViewModel.getInvestorProductsInformation("Bearer $token")
             getProductsLayout()
-            setupViews()
+            subscribeToProductsViewState()
         }
     }
 
@@ -59,7 +60,7 @@ class DashboardActivity : BaseActivity() {
         lisaLayout = findViewById(R.id.lifetimeISALayout)
     }
 
-    private fun setupViews() {
+    private fun subscribeToProductsViewState() {
         productsViewModel.viewState.observe(this, Observer { productsViewState ->
             when (productsViewState) {
                 InvestorProductsViewState.Loading -> {
@@ -67,6 +68,8 @@ class DashboardActivity : BaseActivity() {
                 }
                 is InvestorProductsViewState.ShowProducts -> {
                     // TODO: Improve the way I handle text
+                    // TODO: Find a way to double all numbers
+                    totalPlan.text = "Total Plan Value: ${symbol}${String.format("%.2f", productsViewState.totalPlanValue)}"
                     setupProductsLabel(productsViewState)
                     setupProductsPlanValue(productsViewState)
                     setupProductsMoneybox(productsViewState)
@@ -85,15 +88,15 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun setupProductsPlanValue(productsViewState: InvestorProductsViewState.ShowProducts) {
-        isaLayout.planValueLabel.text = "Plan Value: ${symbol}${productsViewState.isa.planValue}"
-        giaLayout.planValueLabel.text = "Plan Value: ${symbol}${productsViewState.gia.planValue}"
-        lisaLayout.planValueLabel.text = "Plan Value: ${symbol}${productsViewState.lisa.planValue}"
+        isaLayout.planValueLabel.text = "Plan Value: ${symbol}${String.format("%.2f", productsViewState.isa.planValue)}"
+        giaLayout.planValueLabel.text = "Plan Value: ${symbol}${String.format("%.2f", productsViewState.gia.planValue)}"
+        lisaLayout.planValueLabel.text = "Plan Value: ${symbol}${String.format("%.2f", productsViewState.lisa.planValue)}"
     }
 
     private fun setupProductsMoneybox(productsViewState: InvestorProductsViewState.ShowProducts) {
-        isaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${productsViewState.isa.moneyBox}"
-        giaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${productsViewState.gia.moneyBox}"
-        lisaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${productsViewState.lisa.moneyBox}"
+        isaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${String.format("%.2f", productsViewState.isa.moneyBox)}"
+        giaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${String.format("%.2f", productsViewState.gia.moneyBox)}"
+        lisaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${String.format("%.2f", productsViewState.lisa.moneyBox)}"
     }
 
 }

@@ -27,7 +27,9 @@ class InvestorProductsViewModel @Inject constructor(
                             InvestorProductsViewState.ShowProducts(
                                 investorProductsDataState.investorProducts.productResponses[0],
                                 investorProductsDataState.investorProducts.productResponses[1],
-                                investorProductsDataState.investorProducts.productResponses[2]
+                                investorProductsDataState.investorProducts.productResponses[2],
+                                // Maybe I should just pass the entire investorProducts cause this is weird
+                                investorProductsDataState.investorProducts.totalPlanValue
                             )
                         }
                         is InvestorProductsDataState.Error -> {
