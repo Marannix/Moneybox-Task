@@ -1,8 +1,8 @@
 package com.example.minimoneybox.repository
 
 import com.example.minimoneybox.User
-import com.example.minimoneybox.UserApi
 import com.example.minimoneybox.UserResponse
+import com.example.minimoneybox.api.UserApi
 import com.example.minimoneybox.data.UsersDao
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -32,4 +32,9 @@ class UsersRepository @Inject constructor(
     private fun storeUserInDb(user: User) {
         usersDao.insertUser(user)
     }
+
+    fun getUserFromDB() : User {
+        return usersDao.getUser()
+    }
+
 }

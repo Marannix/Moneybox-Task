@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
-import com.example.minimoneybox.UserApi
+import com.example.minimoneybox.api.UserApi
 import com.example.minimoneybox.state.UserViewState
 import com.example.minimoneybox.viewmodel.UsersViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -47,7 +47,7 @@ class LoginActivity : BaseActivity() {
                     }
                     is UserViewState.ShowUser -> {
                         Toast.makeText(this, "Launching Dashboard", Toast.LENGTH_SHORT).show()
-                        launchDashboard()
+                        launchDashboard(it.user.session.bearerToken)
                     }
                     is UserViewState.ShowError -> {
                         // Need to collect errors
@@ -67,8 +67,9 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    private fun launchDashboard() {
+    private fun launchDashboard(bearerToken: String) {
         val intent = Intent(this, DashboardActivity::class.java)
+        intent.putExtra("bearerToken", bearerToken)
         startActivity(intent)
         finish()
     }

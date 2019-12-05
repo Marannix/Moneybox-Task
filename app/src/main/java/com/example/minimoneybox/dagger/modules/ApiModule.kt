@@ -1,7 +1,8 @@
 package com.example.minimoneybox.dagger.modules
 
 import com.example.minimoneybox.HeaderInterceptor
-import com.example.minimoneybox.UserApi
+import com.example.minimoneybox.api.ProductsApi
+import com.example.minimoneybox.api.UserApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -40,5 +41,11 @@ class ApiModule {
     @Singleton
     fun provideUserApi(retrofit: Retrofit): UserApi {
         return retrofit.create(UserApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInvestorProducts(retrofit: Retrofit): ProductsApi {
+        return retrofit.create(ProductsApi::class.java)
     }
 }

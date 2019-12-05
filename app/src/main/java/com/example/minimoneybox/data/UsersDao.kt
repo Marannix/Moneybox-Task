@@ -14,4 +14,5 @@ interface UsersDao {
 
     @Query("select * from user")
     fun getUser(): User
+
 }
