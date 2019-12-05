@@ -69,6 +69,7 @@ class DashboardActivity : BaseActivity() {
                     // TODO: Improve the way I handle text
                     setupProductsLabel(productsViewState)
                     setupProductsPlanValue(productsViewState)
+                    setupProductsMoneybox(productsViewState)
                 }
                 is InvestorProductsViewState.ShowError -> {
                     Toast.makeText(this, "Products: $productsViewState.errorMessage", Toast.LENGTH_SHORT).show()
@@ -84,8 +85,15 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun setupProductsPlanValue(productsViewState: InvestorProductsViewState.ShowProducts) {
-        isaLayout.planValueLabel.text = "Plan Value ${symbol}${productsViewState.isa.planValue}"
-        giaLayout.planValueLabel.text = "Plan Value ${symbol}${productsViewState.gia.planValue}"
-        lisaLayout.planValueLabel.text = "Plan Value ${symbol}${productsViewState.lisa.planValue}"
+        isaLayout.planValueLabel.text = "Plan Value: ${symbol}${productsViewState.isa.planValue}"
+        giaLayout.planValueLabel.text = "Plan Value: ${symbol}${productsViewState.gia.planValue}"
+        lisaLayout.planValueLabel.text = "Plan Value: ${symbol}${productsViewState.lisa.planValue}"
     }
+
+    private fun setupProductsMoneybox(productsViewState: InvestorProductsViewState.ShowProducts) {
+        isaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${productsViewState.isa.moneyBox}"
+        giaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${productsViewState.gia.moneyBox}"
+        lisaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${productsViewState.lisa.moneyBox}"
+    }
+
 }

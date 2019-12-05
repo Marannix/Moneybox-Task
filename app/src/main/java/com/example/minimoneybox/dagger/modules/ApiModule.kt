@@ -10,6 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 const val BASE_URL = "https://api-test01.moneyboxapp.com"
@@ -25,6 +26,9 @@ class ApiModule {
         logging.level = HttpLoggingInterceptor.Level.BODY
 
         val httpClient = OkHttpClient.Builder()
+            .readTimeout(1, TimeUnit.MINUTES)
+            .writeTimeout(1, TimeUnit.MINUTES)
+            .connectTimeout(1, TimeUnit.MINUTES)
             .addInterceptor(HeaderInterceptor())
             .addInterceptor(logging)
             .build()

@@ -37,7 +37,6 @@ class UsersViewModel @Inject constructor(
         )
     }
 
-
     // TODO: Move this to usecase :O
     private fun getUserDataState(email: String, password: String): Observable<UserDataState> {
         return usersRepository.getUsers(email, password)
