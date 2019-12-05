@@ -4,8 +4,11 @@
     <color name="colorPrimaryDark">#546270</color>
     <color name="colorAccent">#49bfbd</color>
     <color name="white">#ffffff</color>
+    <color name="deep_blue">#2b3648</color>
+    <color name="off_white">#fcfaf2</color>
     <color name="light_grey">#dde0e2</color>
     <color name="text_button_primary">@color/white</color>
+    <color name="text_label_primary">@color/off_white</color>
     <color name="button_background">#00c2b5</color>
     <color name="card_view_background">#00c2b5</color>
     <color name="aqua_50">#7F00c2b5</color>

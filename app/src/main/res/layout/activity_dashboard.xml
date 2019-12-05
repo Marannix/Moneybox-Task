@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/deep_blue"
         tools:context=".activity.DashboardActivity">
 
     <TextView
@@ -21,9 +22,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-black"
+            android:textSize="15sp"
+            android:textColor="@color/text_label_primary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chosenName"/>
+            app:layout_constraintTop_toBottomOf="@id/chosenName"
+            app:layout_constraintBottom_toTopOf="@id/stockAndShareLayout"
+            app:layout_constraintVertical_chainStyle="packed" app:layout_constraintVertical_bias="0.26999998"/>
 
     <include
             android:id="@+id/stockAndShareLayout"
@@ -34,7 +42,9 @@
             app:layout_constraintHeight_percent="0.18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/totalPlan"/>
+            app:layout_constraintTop_toBottomOf="@id/totalPlan"
+            app:layout_constraintBottom_toTopOf="@id/generalInvestmentAccountLayout"
+          app:layout_constraintVertical_bias="0.31"/>
 
     <include
             android:id="@+id/generalInvestmentAccountLayout"
@@ -45,7 +55,8 @@
             app:layout_constraintHeight_percent="0.18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/stockAndShareLayout"/>
+            app:layout_constraintTop_toBottomOf="@id/stockAndShareLayout"
+            app:layout_constraintBottom_toTopOf="@id/lifetimeISALayout"/>
 
     <include
             android:id="@+id/lifetimeISALayout"
@@ -56,5 +67,7 @@
             app:layout_constraintHeight_percent="0.18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/generalInvestmentAccountLayout"/>
+            app:layout_constraintTop_toBottomOf="@id/generalInvestmentAccountLayout"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,21 +5,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="20dp"
-        app:cardElevation="4dp"
+        app:cardElevation="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardBackgroundColor="@color/card_view_background">
+        app:cardBackgroundColor="@color/colorPrimaryDark">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp">
+            android:layout_margin="8dp"
+    >
 
+        <!-- TODO: Extract shared elements into style if necessary -->
         <TextView
                 android:id="@+id/planTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="15sp"
+                android:textColor="@color/text_label_primary"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +37,11 @@
                 android:id="@+id/planValueLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="15sp"
+                android:textColor="@color/text_label_primary"
                 app:layout_constraintTop_toBottomOf="@id/planTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +51,11 @@
                 android:id="@+id/moneyBoxLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="15sp"
+                android:textColor="@color/text_label_primary"
                 app:layout_constraintTop_toBottomOf="@id/planValueLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
