@@ -1,7 +1,7 @@
 package com.example.minimoneybox.repository
 
-import com.example.minimoneybox.User
-import com.example.minimoneybox.UserResponse
+import com.example.minimoneybox.data.user.User
+import com.example.minimoneybox.data.user.UserResponse
 import com.example.minimoneybox.api.UserApi
 import com.example.minimoneybox.data.UsersDao
 import io.reactivex.Observable

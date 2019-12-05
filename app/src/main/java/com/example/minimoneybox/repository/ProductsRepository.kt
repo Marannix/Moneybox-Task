@@ -1,6 +1,6 @@
 package com.example.minimoneybox.repository
 
-import com.example.minimoneybox.InvestorProducts
+import com.example.minimoneybox.data.products.InvestorProducts
 import com.example.minimoneybox.api.ProductsApi
 import io.reactivex.Observable
 import io.reactivex.Single

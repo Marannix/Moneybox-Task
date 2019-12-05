@@ -1,6 +1,6 @@
 package com.example.minimoneybox.state
 
-import com.example.minimoneybox.InvestorProducts
+import com.example.minimoneybox.data.products.InvestorProducts
 
 sealed class InvestorProductsDataState {
     data class Success(val investorProducts: InvestorProducts) : InvestorProductsDataState()

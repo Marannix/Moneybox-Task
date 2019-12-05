@@ -1,4 +1,4 @@
-package com.example.minimoneybox
+package com.example.minimoneybox.api
 
 import okhttp3.Interceptor
 import okhttp3.Response

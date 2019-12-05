@@ -1,6 +1,6 @@
 package com.example.minimoneybox.api
 
-import com.example.minimoneybox.UserResponse
+import com.example.minimoneybox.data.user.UserResponse
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

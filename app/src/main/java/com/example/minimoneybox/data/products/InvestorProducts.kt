@@ -1,5 +1,6 @@
-package com.example.minimoneybox
+package com.example.minimoneybox.data.products
 
+import com.example.minimoneybox.data.products.ProductResponses
 import com.google.gson.annotations.SerializedName
 
 class InvestorProducts(

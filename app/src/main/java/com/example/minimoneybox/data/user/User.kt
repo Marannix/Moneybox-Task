@@ -1,4 +1,4 @@
-package com.example.minimoneybox
+package com.example.minimoneybox.data.user
 
 import android.os.Parcelable
 import androidx.room.Entity

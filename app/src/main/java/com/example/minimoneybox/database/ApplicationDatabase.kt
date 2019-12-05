@@ -2,7 +2,7 @@ package com.example.minimoneybox.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.minimoneybox.User
+import com.example.minimoneybox.data.user.User
 import com.example.minimoneybox.data.UsersDao
 
 @Database(

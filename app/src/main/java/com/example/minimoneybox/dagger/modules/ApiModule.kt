@@ -1,6 +1,6 @@
 package com.example.minimoneybox.dagger.modules
 
-import com.example.minimoneybox.HeaderInterceptor
+import com.example.minimoneybox.api.HeaderInterceptor
 import com.example.minimoneybox.api.ProductsApi
 import com.example.minimoneybox.api.UserApi
 import dagger.Module

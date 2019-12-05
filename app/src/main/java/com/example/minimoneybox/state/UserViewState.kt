@@ -1,6 +1,6 @@
 package com.example.minimoneybox.state
 
-import com.example.minimoneybox.UserResponse
+import com.example.minimoneybox.data.user.UserResponse
 
 sealed class UserViewState {
     object Loading : UserViewState()
