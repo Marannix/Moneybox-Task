@@ -12,11 +12,12 @@ import com.example.minimoneybox.state.InvestorProductsViewState
 import com.example.minimoneybox.viewmodel.InvestorProductsViewModel
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.saving_plan_layout.view.*
+import java.util.*
 import javax.inject.Inject
 
 class DashboardActivity : BaseActivity() {
 
-    //TODO: Create fragment and retrieve user information from the database
+    //TODO: Create fragment
 
     @Inject
     lateinit var usersRepository: UsersRepository
@@ -26,11 +27,19 @@ class DashboardActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    //TODO: Remove these currency checker
+    private val locale = Locale.getDefault()
+    private val currency = Currency.getInstance(locale)
+    private val symbol = currency.symbol
+
+    private lateinit var isaLayout: MaterialCardView
+    private lateinit var giaLayout: MaterialCardView
+    private lateinit var lisaLayout: MaterialCardView
+
     private val productsViewModel: InvestorProductsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)
             .get(InvestorProductsViewModel::class.java)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,20 +47,16 @@ class DashboardActivity : BaseActivity() {
 
         if (intent.hasExtra("bearerToken")) {
             val token = intent.getStringExtra("bearerToken")
-//            val disposable = productsApi.getInvestorProducts("Bearer $token")
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-//                    Toast.makeText(this, it.productResponses[0].id.toString(), Toast.LENGTH_SHORT).show()
-//                }, {
-//                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-//                })
-//            disposables.add(disposable)
-
             productsViewModel.getInvestorProductsInformation("Bearer $token")
+            getProductsLayout()
             setupViews()
         }
+    }
 
+    private fun getProductsLayout() {
+        isaLayout = findViewById(R.id.stockAndShareLayout)
+        giaLayout = findViewById(R.id.generalInvestmentAccountLayout)
+        lisaLayout = findViewById(R.id.lifetimeISALayout)
     }
 
     private fun setupViews() {
@@ -61,18 +66,26 @@ class DashboardActivity : BaseActivity() {
                     Toast.makeText(this, "Loading Products", Toast.LENGTH_SHORT).show()
                 }
                 is InvestorProductsViewState.ShowProducts -> {
-                    val isaLayout = findViewById<MaterialCardView>(R.id.stockAndShareLayout)
-                    val giaLayout = findViewById<MaterialCardView>(R.id.generalInvestmentAccountLayout)
-                    val lisaLayout = findViewById<MaterialCardView>(R.id.lifetimeISALayout)
-
-                    isaLayout.planTitle.text = productsViewState.isa.products.friendlyName
-                    giaLayout.planTitle.text = productsViewState.gia.products.friendlyName
-                    lisaLayout.planTitle.text = productsViewState.lisa.products.friendlyName
+                    // TODO: Improve the way I handle text
+                    setupProductsLabel(productsViewState)
+                    setupProductsPlanValue(productsViewState)
                 }
                 is InvestorProductsViewState.ShowError -> {
                     Toast.makeText(this, "Products: $productsViewState.errorMessage", Toast.LENGTH_SHORT).show()
                 }
             }
         })
+    }
+
+    private fun setupProductsLabel(productsViewState: InvestorProductsViewState.ShowProducts) {
+        isaLayout.planTitle.text = productsViewState.isa.products.friendlyName
+        giaLayout.planTitle.text = productsViewState.gia.products.friendlyName
+        lisaLayout.planTitle.text = productsViewState.lisa.products.friendlyName
+    }
+
+    private fun setupProductsPlanValue(productsViewState: InvestorProductsViewState.ShowProducts) {
+        isaLayout.planValueLabel.text = "Plan Value ${symbol}${productsViewState.isa.planValue}"
+        giaLayout.planValueLabel.text = "Plan Value ${symbol}${productsViewState.gia.planValue}"
+        lisaLayout.planValueLabel.text = "Plan Value ${symbol}${productsViewState.lisa.planValue}"
     }
 }
