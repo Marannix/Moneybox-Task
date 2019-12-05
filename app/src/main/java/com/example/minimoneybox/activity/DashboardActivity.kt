@@ -65,9 +65,9 @@ class DashboardActivity : BaseActivity() {
                     val giaLayout = findViewById<MaterialCardView>(R.id.generalInvestmentAccountLayout)
                     val lisaLayout = findViewById<MaterialCardView>(R.id.lifetimeISALayout)
 
-                    isaLayout.planTitle.text = productsViewState.isa.id.toString()
-                    giaLayout.planTitle.text = productsViewState.gia.id.toString()
-                    lisaLayout.planTitle.text = productsViewState.lisa.id.toString()
+                    isaLayout.planTitle.text = productsViewState.isa.products.friendlyName
+                    giaLayout.planTitle.text = productsViewState.gia.products.friendlyName
+                    lisaLayout.planTitle.text = productsViewState.lisa.products.friendlyName
                 }
                 is InvestorProductsViewState.ShowError -> {
                     Toast.makeText(this, "Products: $productsViewState.errorMessage", Toast.LENGTH_SHORT).show()
