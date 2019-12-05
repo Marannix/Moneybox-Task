@@ -45,6 +45,10 @@ class UsersViewModel @Inject constructor(
                 //TODO: Should i just pass user.user?
                 UserDataState.Success(user)
             }
-            .onErrorReturn { error -> UserDataState.Error(error.message) }
+            .onErrorReturn { error ->
+                // TODO: Maybe at this point check if either error 400, 401 or 500
+                UserDataState.Error(error.message)
+
+            }
     }
 }

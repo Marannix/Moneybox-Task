@@ -7,7 +7,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
-import com.example.minimoneybox.api.UserApi
 import com.example.minimoneybox.state.UserViewState
 import com.example.minimoneybox.viewmodel.UsersViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -20,8 +19,6 @@ import javax.inject.Inject
 class LoginActivity : BaseActivity() {
 
     private val disposables = CompositeDisposable()
-    @Inject
-    lateinit var userApi: UserApi
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
