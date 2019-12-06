@@ -1,5 +1,6 @@
 package com.example.minimoneybox.fragment
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
+import com.example.minimoneybox.design.FullscreenLoadingDialog
 import com.example.minimoneybox.sharedpreferences.PreferencesHelper
 import com.example.minimoneybox.state.InvestorProductsViewState
 import com.example.minimoneybox.viewmodel.InvestorProductsViewModel
@@ -19,9 +21,6 @@ import java.util.*
 import javax.inject.Inject
 
 class DashboardFragment : BaseFragment() {
-
-    private var listener: OnProductsSelectedListener? = null
-    private lateinit var saveMe : InvestorProductsViewState
 
     interface OnProductsSelectedListener {
         fun onISASelected()
@@ -40,8 +39,10 @@ class DashboardFragment : BaseFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
     lateinit var userPreference: PreferencesHelper
+    private lateinit var loadingDialog: Dialog
+    private var listener: OnProductsSelectedListener? = null
 
-    //TODO: Remove these currency checker
+    //TODO: Remove these currency checker and place somewhere else
     private val locale = Locale.getDefault()
     private val currency = Currency.getInstance(locale)
     private val symbol = currency.symbol
@@ -57,6 +58,13 @@ class DashboardFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        loadingDialog = FullscreenLoadingDialog(requireContext()).apply {
+            setCanceledOnTouchOutside(false)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,9 +87,11 @@ class DashboardFragment : BaseFragment() {
         productsViewModel.viewState.observe(this, Observer { productsViewState ->
             when (productsViewState) {
                 InvestorProductsViewState.Loading -> {
+                    loadingDialog.show()
                     Toast.makeText(requireContext(), "Loading Products", Toast.LENGTH_SHORT).show()
                 }
                 is InvestorProductsViewState.ShowProducts -> {
+                    loadingDialog.dismiss()
                     // TODO: Improve the way I handle text
                     // TODO: Find a way to double all numbers
                     totalPlan.text =
@@ -92,6 +102,7 @@ class DashboardFragment : BaseFragment() {
                     setupListeners()
                 }
                 is InvestorProductsViewState.ShowError -> {
+                    loadingDialog.dismiss()
                     Toast.makeText(requireContext(), "Products: $productsViewState.errorMessage", Toast.LENGTH_SHORT)
                         .show()
                 }

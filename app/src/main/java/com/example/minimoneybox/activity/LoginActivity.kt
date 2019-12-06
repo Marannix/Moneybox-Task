@@ -1,5 +1,6 @@
 package com.example.minimoneybox.activity
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
+import com.example.minimoneybox.design.FullscreenLoadingDialog
 import com.example.minimoneybox.sharedpreferences.PreferencesHelper
 import com.example.minimoneybox.state.UserViewState
 import com.example.minimoneybox.viewmodel.UsersViewModel
@@ -24,6 +26,7 @@ class LoginActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
     lateinit var userPreference: PreferencesHelper
+    private lateinit var loadingDialog: Dialog
 
     private val userViewModel: UsersViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)
@@ -33,23 +36,30 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        loadingDialog = FullscreenLoadingDialog(this).apply {
+            setCanceledOnTouchOutside(false)
+        }
         setupViews()
     }
 
     private fun setupViews() {
         btn_sign_in.setOnClickListener {
+            loadingDialog.show()
             animation.playAnimation()
             userViewModel.getUserInformation(et_email.text.toString(), et_password.text.toString())
             userViewModel.viewState.observe(this, Observer {
                 when (it) {
                     UserViewState.Loading -> {
+                        loadingDialog.show()
                         Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
                     }
                     is UserViewState.ShowUser -> {
+                        loadingDialog.dismiss()
                         Toast.makeText(this, "Launching Dashboard", Toast.LENGTH_SHORT).show()
                         launchDashboard(it.user.session.bearerToken)
                     }
                     is UserViewState.ShowError -> {
+                        loadingDialog.dismiss()
                         // Need to collect errors
                         //{"Name":"Login failed","Message":"Incorrect email address or password. Please check and try again.","ValidationErrors":[]}
                         Toast.makeText(this, it.errorMessage, Toast.LENGTH_SHORT).show()

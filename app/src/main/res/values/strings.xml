@@ -13,6 +13,7 @@
     <string name="input_valid">Input is valid!</string>
     <!--    Lottie files-->
     <string name="lottie_owl_coin_shower">owl_coin_shower.json</string>
+    <string name="lottie_loading_progress">loading_progress.json</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
