@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="20dp"
-        app:cardElevation="6dp"
+        app:cardElevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_default"
     >
 
         <!-- TODO: Extract shared elements into style if necessary -->
@@ -23,9 +23,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:textSize="15sp"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:textSize="@dimen/text_style_medium"
                 android:textColor="@color/text_label_primary"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,33 +33,60 @@
                 app:layout_constraintBottom_toTopOf="@id/planValueLabel"
         />
 
+
         <TextView
                 android:id="@+id/planValueLabel"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:textSize="15sp"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:textSize="@dimen/text_style_medium"
                 android:textColor="@color/text_label_primary"
                 app:layout_constraintTop_toBottomOf="@id/planTitle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/nextButton"
+                app:layout_constraintEnd_toStartOf="@id/planValueText"
                 app:layout_constraintBottom_toTopOf="@id/moneyBoxLabel"/>
 
         <TextView
-                android:id="@+id/moneyBoxLabel"
+                android:id="@+id/planValueText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:fontFamily="sans-serif-black"
-                android:textSize="15sp"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:textSize="@dimen/text_style_medium"
+                android:textColor="@color/text_label_primary"
+                app:layout_constraintTop_toTopOf="@id/planValueLabel"
+                app:layout_constraintStart_toEndOf="@id/planValueLabel"
+                app:layout_constraintEnd_toStartOf="@id/nextButton"
+                app:layout_constraintBottom_toBottomOf="@id/planValueLabel"/>
+
+        <TextView
+                android:id="@+id/moneyBoxLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:fontFamily="sans-serif-black"
+                android:textSize="@dimen/text_style_medium"
                 android:textColor="@color/text_label_primary"
                 app:layout_constraintTop_toBottomOf="@id/planValueLabel"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/nextButton"
+                app:layout_constraintEnd_toStartOf="@id/moneyBoxText"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+                android:id="@+id/moneyBoxText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:textSize="@dimen/text_style_medium"
+                android:textColor="@color/text_label_primary"
+                app:layout_constraintTop_toTopOf="@id/moneyBoxLabel"
+                app:layout_constraintStart_toEndOf="@id/moneyBoxLabel"
+                app:layout_constraintEnd_toStartOf="@id/nextButton"
+                app:layout_constraintBottom_toBottomOf="@id/moneyBoxLabel"/>
 
         <ImageView
                 android:id="@+id/nextButton"

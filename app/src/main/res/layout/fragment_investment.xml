@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragment.InvestmentFragment">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.InvestmentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:id="@+id/investmentName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginStart="@dimen/margin_default"
+            android:fontFamily="sans-serif-black"
+            android:textSize="@dimen/text_style_medium"
+            android:textColor="@color/text_label_primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/investmentPlanValue"
+            app:layout_constraintVertical_chainStyle="packed"/>
 
-</FrameLayout>
+    <TextView
+            android:id="@+id/investmentPlanValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginStart="@dimen/margin_default"
+            android:fontFamily="sans-serif-black"
+            android:textSize="@dimen/text_style_medium"
+            android:textColor="@color/text_label_primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/investmentName"
+            app:layout_constraintBottom_toTopOf="@id/investmentMoneyBox"/>
+
+    <TextView
+            android:id="@+id/investmentMoneyBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginStart="@dimen/margin_default"
+            android:fontFamily="sans-serif-black"
+            android:textSize="@dimen/text_style_medium"
+            android:textColor="@color/text_label_primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/investmentPlanValue"
+            app:layout_constraintBottom_toTopOf="@id/investmentAddMoney"/>
+
+    <Button
+            android:id="@+id/investmentAddMoney"
+            style="@style/Widget.Button.Colored.Rounded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/action_add_money"
+            app:layout_constraintTop_toBottomOf="@+id/investmentMoneyBox"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

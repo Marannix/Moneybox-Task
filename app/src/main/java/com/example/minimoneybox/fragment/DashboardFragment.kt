@@ -117,16 +117,23 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun setupProductsPlanValue(productsViewState: InvestorProductsViewState.ShowProducts) {
-        isaLayout.planValueLabel.text = "Plan Value: ${symbol}${String.format("%.2f", productsViewState.isa.planValue)}"
-        giaLayout.planValueLabel.text = "Plan Value: ${symbol}${String.format("%.2f", productsViewState.gia.planValue)}"
-        lisaLayout.planValueLabel.text =
-            "Plan Value: ${symbol}${String.format("%.2f", productsViewState.lisa.planValue)}"
+        isaLayout.planValueLabel.text = "Plan Value:"
+        giaLayout.planValueLabel.text = "Plan Value:"
+        lisaLayout.planValueLabel.text = "Plan Value:"
+
+        isaLayout.planValueText.text = "${symbol}${String.format("%.2f", productsViewState.isa.planValue)}"
+        giaLayout.planValueText.text = "${symbol}${String.format("%.2f", productsViewState.gia.planValue)}"
+        lisaLayout.planValueText.text = "${symbol}${String.format("%.2f", productsViewState.lisa.planValue)}"
     }
 
     private fun setupProductsMoneybox(productsViewState: InvestorProductsViewState.ShowProducts) {
-        isaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${String.format("%.2f", productsViewState.isa.moneyBox)}"
-        giaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${String.format("%.2f", productsViewState.gia.moneyBox)}"
-        lisaLayout.moneyBoxLabel.text = "Moneybox: ${symbol}${String.format("%.2f", productsViewState.lisa.moneyBox)}"
+        isaLayout.moneyBoxLabel.text = "Moneybox:"
+        giaLayout.moneyBoxLabel.text = "Moneybox:"
+        lisaLayout.moneyBoxLabel.text = "Moneybox:"
+
+        isaLayout.moneyBoxText.text = "${symbol}${String.format("%.2f", productsViewState.isa.moneyBox)}"
+        giaLayout.moneyBoxText.text = "${symbol}${String.format("%.2f", productsViewState.gia.moneyBox)}"
+        lisaLayout.moneyBoxText.text = "${symbol}${String.format("%.2f", productsViewState.lisa.moneyBox)}"
     }
 
     private fun setupListeners() {
