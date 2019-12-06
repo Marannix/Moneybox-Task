@@ -37,9 +37,12 @@ class InvestorProductsViewModel @Inject constructor(
                         }
                     }
                 }.doOnSubscribe { viewState.value = InvestorProductsViewState.Loading }
-                .subscribe {
-                    viewState.value = it
-                }
+                .subscribe ({
+                    this.viewState.value = it
+                },{
+                    //Added this to prevent crashing when device goes offline
+                    InvestorProductsViewState.ShowError(it.message)
+                })
         )
     }
 
