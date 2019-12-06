@@ -41,7 +41,7 @@ class InvestorProductsViewModel @Inject constructor(
                     this.viewState.value = it
                 },{
                     //Added this to prevent crashing when device goes offline
-                    InvestorProductsViewState.ShowError(it.message)
+                    this.viewState.value = InvestorProductsViewState.ShowError(it.message)
                 })
         )
     }
