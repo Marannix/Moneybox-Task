@@ -43,6 +43,7 @@ class InvestorProductsViewModel @Inject constructor(
         )
     }
 
+    //TODO: Fix typo
     private fun getInvestoryProductsDataState(token: String): Observable<InvestorProductsDataState> {
         return productsRepository.getInvestorProducts(token)
             .map<InvestorProductsDataState> { products ->
@@ -50,5 +51,10 @@ class InvestorProductsViewModel @Inject constructor(
             }.doOnError { error ->
                 InvestorProductsDataState.Error(error.message)
             }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
     }
 }

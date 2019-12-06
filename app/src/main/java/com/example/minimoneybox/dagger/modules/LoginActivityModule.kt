@@ -6,8 +6,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-abstract class MainActivityModule {
-
+abstract class LoginActivityModule {
     @Binds
-    abstract fun provideMainActivity(activity: LoginActivity): FragmentActivity
+    abstract fun provideLoginActivity(activity: LoginActivity): FragmentActivity
 }

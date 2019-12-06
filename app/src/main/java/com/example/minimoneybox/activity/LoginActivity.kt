@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
+import com.example.minimoneybox.sharedpreferences.PreferencesHelper
 import com.example.minimoneybox.state.UserViewState
 import com.example.minimoneybox.viewmodel.UsersViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -21,6 +22,8 @@ class LoginActivity : BaseActivity() {
     private val disposables = CompositeDisposable()
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var userPreference: PreferencesHelper
 
     private val userViewModel: UsersViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)
@@ -55,6 +58,17 @@ class LoginActivity : BaseActivity() {
             })
         }
 
+        loginTimeSaver()
+    }
+
+    private fun launchDashboard(bearerToken: String) {
+        val intent = Intent(this, DashboardActivity::class.java)
+        userPreference.setToken("Bearer $bearerToken")
+        startActivity(intent)
+        finish()
+    }
+
+    private fun loginTimeSaver() {
         // Long press login button to populate the fields
         btn_sign_in.setOnLongClickListener {
             et_email.setText("androidtest@moneyboxapp.com")
@@ -62,13 +76,6 @@ class LoginActivity : BaseActivity() {
             et_name.setText("Money")
             true
         }
-    }
-
-    private fun launchDashboard(bearerToken: String) {
-        val intent = Intent(this, DashboardActivity::class.java)
-        intent.putExtra("bearerToken", bearerToken)
-        startActivity(intent)
-        finish()
     }
 
     override fun onDestroy() {

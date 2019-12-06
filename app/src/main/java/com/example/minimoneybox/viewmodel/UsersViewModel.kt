@@ -50,4 +50,9 @@ class UsersViewModel @Inject constructor(
 
             }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
+    }
 }

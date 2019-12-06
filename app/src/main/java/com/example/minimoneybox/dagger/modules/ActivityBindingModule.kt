@@ -6,11 +6,11 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class ActivityBuilder {
+abstract class ActivityBindingModule {
 
-    @ContributesAndroidInjector(modules = [MainActivityModule::class])
+    @ContributesAndroidInjector(modules = [LoginActivityModule::class])
     abstract fun contributeLoginActivity(): LoginActivity
 
-    @ContributesAndroidInjector(modules = [MainActivityModule::class])
-    abstract fun contributeDashboardActivity(): DashboardActivity
+    @ContributesAndroidInjector(modules = [DashboardActivityModule::class])
+    abstract fun dashboardActivity(): DashboardActivity
 }
