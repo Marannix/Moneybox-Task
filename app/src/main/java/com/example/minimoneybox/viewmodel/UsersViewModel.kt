@@ -2,17 +2,15 @@ package com.example.minimoneybox.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.minimoneybox.repository.UsersRepository
 import com.example.minimoneybox.state.UserDataState
 import com.example.minimoneybox.state.UserViewState
-import io.reactivex.Observable
+import com.example.minimoneybox.usecase.UserUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class UsersViewModel @Inject constructor(
-    private val usersRepository: UsersRepository
+    private val userUseCase: UserUseCase
 ) : ViewModel() {
 
     private val disposables = CompositeDisposable()
@@ -20,7 +18,7 @@ class UsersViewModel @Inject constructor(
 
     fun getUserInformation(email: String, password: String) {
         disposables.add(
-            getUserDataState(email, password)
+            userUseCase.getUserDataState(email, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { userDataState ->
                     return@map when (userDataState) {
@@ -36,26 +34,6 @@ class UsersViewModel @Inject constructor(
                     this.viewState.value = it
                 }
         )
-    }
-
-    // TODO: Move this to usecase :O
-    private fun getUserDataState(email: String, password: String): Observable<UserDataState> {
-        return usersRepository.getUsers(email, password)
-            .map<UserDataState> { user ->
-                //TODO: Should i just pass user.user?
-                UserDataState.Success(user)
-            }
-            .onErrorReturn { error ->
-                // TODO: Maybe at this point check if either error 400, 401 or 500
-                if (error is HttpException) {
-                    when (error.code()) {
-                        // Unable to get error code...??
-                        
-                    }
-                }
-                UserDataState.Error(error.message)
-
-            }
     }
 
     override fun onCleared() {

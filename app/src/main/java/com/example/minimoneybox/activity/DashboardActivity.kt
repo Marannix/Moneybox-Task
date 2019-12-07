@@ -65,7 +65,7 @@ class DashboardActivity : BaseActivity() {
         if (supportFragmentManager.backStackEntryCount == 1) {
             finish()
         } else {
-            super.onBackPressed()
+            supportFragmentManager.popBackStack()
         }
     }
 

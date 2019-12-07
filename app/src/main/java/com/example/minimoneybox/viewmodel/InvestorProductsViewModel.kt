@@ -2,18 +2,17 @@ package com.example.minimoneybox.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.minimoneybox.repository.ProductsRepository
 import com.example.minimoneybox.state.InvestedMoneyboxDataState
 import com.example.minimoneybox.state.InvestedMoneyboxViewState
 import com.example.minimoneybox.state.InvestorProductsDataState
 import com.example.minimoneybox.state.InvestorProductsViewState
-import io.reactivex.Observable
+import com.example.minimoneybox.usecase.InvestorProductsUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class InvestorProductsViewModel @Inject constructor(
-    private val productsRepository: ProductsRepository
+    private val investorProductsUseCase: InvestorProductsUseCase
 ) : ViewModel() {
 
     private val disposables = CompositeDisposable()
@@ -22,7 +21,7 @@ class InvestorProductsViewModel @Inject constructor(
 
     fun getInvestorProductsInformation(token: String) {
         disposables.add(
-            getInvestoryProductsDataState(token).observeOn(AndroidSchedulers.mainThread())
+            investorProductsUseCase.getInvestorProductsDataState(token).observeOn(AndroidSchedulers.mainThread())
                 .map { investorProductsDataState ->
                     return@map when (investorProductsDataState) {
                         is InvestorProductsDataState.Success -> {
@@ -51,7 +50,7 @@ class InvestorProductsViewModel @Inject constructor(
 
     fun makePayment(token: String, amount: Int, investorProductId: Int) {
         disposables.add(
-            makeOneOffPayment(token, amount, investorProductId).observeOn(AndroidSchedulers.mainThread())
+            investorProductsUseCase.makeOneOffPayment(token, amount, investorProductId).observeOn(AndroidSchedulers.mainThread())
                 .map { datastate ->
                     return@map when (datastate) {
                         is InvestedMoneyboxDataState.Success -> {
@@ -70,31 +69,6 @@ class InvestorProductsViewModel @Inject constructor(
                 })
 
         )
-    }
-
-    //TODO: Fix typo
-    // Move to Usecase
-    private fun getInvestoryProductsDataState(token: String): Observable<InvestorProductsDataState> {
-        return productsRepository.getInvestorProducts(token)
-            .map<InvestorProductsDataState> { products ->
-                InvestorProductsDataState.Success(products)
-            }.doOnError { error ->
-                InvestorProductsDataState.Error(error.message)
-            }
-    }
-
-    // Move to Usecase
-    private fun makeOneOffPayment(
-        token: String,
-        amount: Int,
-        investorProductId: Int
-    ): Observable<InvestedMoneyboxDataState> {
-        return productsRepository.makeOneOffPayment(token, amount, investorProductId)
-            .map<InvestedMoneyboxDataState> { response ->
-                InvestedMoneyboxDataState.Success(response)
-            }.doOnError { error ->
-                InvestedMoneyboxDataState.Error(error.message)
-            }
     }
 
     override fun onCleared() {
