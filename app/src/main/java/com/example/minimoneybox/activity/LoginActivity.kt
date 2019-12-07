@@ -56,7 +56,8 @@ class LoginActivity : BaseActivity() {
                     is UserViewState.ShowUser -> {
                         loadingDialog.dismiss()
                         Toast.makeText(this, "Launching Dashboard", Toast.LENGTH_SHORT).show()
-                        launchDashboard(it.user.session.bearerToken)
+                        storeUserInformation(it.user.session.bearerToken)
+                        launchDashboard()
                     }
                     is UserViewState.ShowError -> {
                         loadingDialog.dismiss()
@@ -71,9 +72,13 @@ class LoginActivity : BaseActivity() {
         loginTimeSaver()
     }
 
-    private fun launchDashboard(bearerToken: String) {
-        val intent = Intent(this, DashboardActivity::class.java)
+    private fun storeUserInformation(bearerToken: String) {
+        userPreference.setUserFullName(et_name.text.toString())
         userPreference.setToken("Bearer $bearerToken")
+    }
+
+    private fun launchDashboard() {
+        val intent = Intent(this, DashboardActivity::class.java)
         startActivity(intent)
         finish()
     }

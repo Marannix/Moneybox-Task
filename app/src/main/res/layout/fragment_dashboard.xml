@@ -15,9 +15,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            style="@style/DashboardTextStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/totalPlan"
+            app:layout_constraintVertical_chainStyle="packed"/>
 
     <TextView
             android:id="@+id/totalPlan"
@@ -25,15 +28,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginStart="@dimen/margin_default"
-            android:fontFamily="sans-serif-black"
-            android:textSize="@dimen/text_style_medium"
-            android:textColor="@color/text_label_primary"
+            style="@style/DashboardTextStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chosenName"
             app:layout_constraintBottom_toTopOf="@id/stockAndShareLayout"
-            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintVertical_bias="0.26999998"/>
 
     <include

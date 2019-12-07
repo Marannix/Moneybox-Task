@@ -68,14 +68,26 @@ class DashboardFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
-            getProductsLayout()
+            getProducts()
         }
+        findLayouts()
+        setUserFullName()
         subscribeToProductsViewState()
     }
 
-    private fun getProductsLayout() {
+    private fun setUserFullName() {
+        if (userPreference.getUserFullName().isNotEmpty()) {
+            chosenName.text = "Hello ${userPreference.getUserFullName()}!"
+        }
+    }
+
+    private fun getProducts() {
         // View can't be null since its called after onViewCreated(Assumption)
         productsViewModel.getInvestorProductsInformation(userPreference.getToken())
+
+    }
+
+    private fun findLayouts() {
         isaLayout = view!!.findViewById(R.id.stockAndShareLayout)
         giaLayout = view!!.findViewById(R.id.generalInvestmentAccountLayout)
         lisaLayout = view!!.findViewById(R.id.lifetimeISALayout)

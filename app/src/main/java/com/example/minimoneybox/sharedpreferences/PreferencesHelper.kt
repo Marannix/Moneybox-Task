@@ -11,6 +11,7 @@ class PreferencesHelper @Inject constructor(
 
     private var prefUserToken = "moneybox_user_preference"
     private var prefKeyToken = "key_token_object"
+    private var prefUserFullName = "key_user_full_name"
 
     var userPreference = context.getSharedPreferences(prefUserToken, Context.MODE_PRIVATE)!!
 
@@ -20,5 +21,13 @@ class PreferencesHelper @Inject constructor(
 
     fun getToken(): String {
         return userPreference.getString(prefKeyToken, "")!!
+    }
+
+    fun setUserFullName(fullname: String) {
+        userPreference.edit().putString(prefUserFullName, fullname).apply()
+    }
+
+    fun getUserFullName(): String {
+        return userPreference.getString(prefUserFullName, "")!!
     }
 }
