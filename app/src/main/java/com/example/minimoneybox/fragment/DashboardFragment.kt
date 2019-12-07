@@ -7,19 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
 import com.example.minimoneybox.data.products.ProductResponses
 import com.example.minimoneybox.design.FullscreenLoadingDialog
-import com.example.minimoneybox.sharedpreferences.PreferencesHelper
 import com.example.minimoneybox.state.InvestorProductsViewState
 import com.example.minimoneybox.utils.PriceUtils
 import com.example.minimoneybox.viewmodel.InvestorProductsViewModel
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.saving_plan_layout.view.*
-import javax.inject.Inject
 
 class DashboardFragment : BaseFragment() {
 
@@ -38,21 +35,12 @@ class DashboardFragment : BaseFragment() {
         this.listener = listener
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject
-    lateinit var userPreference: PreferencesHelper
     private lateinit var loadingDialog: Dialog
     private var listener: OnProductsSelectedListener? = null
-    
+    private var viewmodel: InvestorProductsViewModel? = null
     private lateinit var isaLayout: MaterialCardView
     private lateinit var giaLayout: MaterialCardView
     private lateinit var lisaLayout: MaterialCardView
-
-    private val productsViewModel: InvestorProductsViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory)
-            .get(InvestorProductsViewModel::class.java)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
@@ -67,6 +55,7 @@ class DashboardFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewmodel = activity?.let { ViewModelProviders.of(it, viewModelFactory).get(InvestorProductsViewModel::class.java) }
         if (savedInstanceState == null) {
             getProducts()
         }
@@ -83,7 +72,7 @@ class DashboardFragment : BaseFragment() {
 
     private fun getProducts() {
         // View can't be null since its called after onViewCreated(Assumption)
-        productsViewModel.getInvestorProductsInformation(userPreference.getToken())
+        viewmodel!!.getInvestorProductsInformation(userPreference.getToken())
 
     }
 
@@ -94,7 +83,7 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun subscribeToProductsViewState() {
-        productsViewModel.viewState.observe(this, Observer { productsViewState ->
+        viewmodel!!.viewState.observe(this, Observer { productsViewState ->
             when (productsViewState) {
                 InvestorProductsViewState.Loading -> {
                     loadingDialog.show()

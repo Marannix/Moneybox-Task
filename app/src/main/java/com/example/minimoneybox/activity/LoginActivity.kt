@@ -24,8 +24,6 @@ class LoginActivity : BaseActivity() {
     private val disposables = CompositeDisposable()
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject
-    lateinit var userPreference: PreferencesHelper
     private lateinit var loadingDialog: Dialog
 
     private val userViewModel: UsersViewModel by lazy {

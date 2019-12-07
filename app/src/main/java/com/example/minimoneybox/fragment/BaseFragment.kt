@@ -1,10 +1,16 @@
 package com.example.minimoneybox.fragment
 
-import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
+import com.example.minimoneybox.sharedpreferences.PreferencesHelper
 import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 abstract class BaseFragment : DaggerFragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
+    @Inject
+    lateinit var userPreference: PreferencesHelper
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
 }

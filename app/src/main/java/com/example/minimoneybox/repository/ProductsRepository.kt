@@ -1,6 +1,7 @@
 package com.example.minimoneybox.repository
 
 import com.example.minimoneybox.api.ProductsApi
+import com.example.minimoneybox.data.products.InvestedMoneyboxResponse
 import com.example.minimoneybox.data.products.InvestorProducts
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -21,6 +22,12 @@ class ProductsRepository @Inject constructor(
     private fun getInvestorProductsFromApi(token: String): Single<InvestorProducts> {
         return productsApi.getInvestorProducts(token)
             .subscribeOn(Schedulers.io())
+    }
+
+    fun makeOneOffPayment(token: String, amount: Int, id: Int): Observable<InvestedMoneyboxResponse> {
+        return productsApi.makePayment(token, amount, id)
+            .subscribeOn(Schedulers.io())
+            .toObservable()
     }
 
 }

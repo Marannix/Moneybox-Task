@@ -8,6 +8,7 @@ import com.example.minimoneybox.state.UserViewState
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class UsersViewModel @Inject constructor(
@@ -46,6 +47,12 @@ class UsersViewModel @Inject constructor(
             }
             .onErrorReturn { error ->
                 // TODO: Maybe at this point check if either error 400, 401 or 500
+                if (error is HttpException) {
+                    when (error.code()) {
+                        // Unable to get error code...??
+                        
+                    }
+                }
                 UserDataState.Error(error.message)
 
             }

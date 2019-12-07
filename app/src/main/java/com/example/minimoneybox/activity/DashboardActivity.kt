@@ -55,7 +55,7 @@ class DashboardActivity : BaseActivity() {
         if (!fragmentPopped) {
             fragmentManager.beginTransaction()
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                .replace(fragmentContainer, fragment)
+                .add(fragmentContainer, fragment)
                 .addToBackStack(fragmentName)
                 .commit()
         }
