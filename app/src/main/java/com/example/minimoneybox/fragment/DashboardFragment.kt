@@ -10,20 +10,23 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
+import com.example.minimoneybox.data.products.ProductResponses
 import com.example.minimoneybox.design.FullscreenLoadingDialog
 import com.example.minimoneybox.sharedpreferences.PreferencesHelper
 import com.example.minimoneybox.state.InvestorProductsViewState
+import com.example.minimoneybox.utils.PriceUtils
 import com.example.minimoneybox.viewmodel.InvestorProductsViewModel
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.saving_plan_layout.view.*
-import java.util.*
 import javax.inject.Inject
 
 class DashboardFragment : BaseFragment() {
 
     interface OnProductsSelectedListener {
-        fun onISASelected()
+        fun onIsaSelected(isa: ProductResponses)
+        fun onGiaSelected(gia: ProductResponses)
+        fun onLisaSelected(lisa: ProductResponses)
     }
 
     companion object {
@@ -41,12 +44,7 @@ class DashboardFragment : BaseFragment() {
     lateinit var userPreference: PreferencesHelper
     private lateinit var loadingDialog: Dialog
     private var listener: OnProductsSelectedListener? = null
-
-    //TODO: Remove these currency checker and place somewhere else
-    private val locale = Locale.getDefault()
-    private val currency = Currency.getInstance(locale)
-    private val symbol = currency.symbol
-
+    
     private lateinit var isaLayout: MaterialCardView
     private lateinit var giaLayout: MaterialCardView
     private lateinit var lisaLayout: MaterialCardView
@@ -95,11 +93,11 @@ class DashboardFragment : BaseFragment() {
                     // TODO: Improve the way I handle text
                     // TODO: Find a way to double all numbers
                     totalPlan.text =
-                        "Total Plan Value: ${symbol}${String.format("%.2f", productsViewState.totalPlanValue)}"
+                        "Total Plan Value: ${PriceUtils.calculatePriceString(productsViewState.totalPlanValue)}"
                     setupProductsLabel(productsViewState)
                     setupProductsPlanValue(productsViewState)
                     setupProductsMoneybox(productsViewState)
-                    setupListeners()
+                    setupListeners(productsViewState)
                 }
                 is InvestorProductsViewState.ShowError -> {
                     loadingDialog.dismiss()
@@ -121,9 +119,9 @@ class DashboardFragment : BaseFragment() {
         giaLayout.planValueLabel.text = "Plan Value:"
         lisaLayout.planValueLabel.text = "Plan Value:"
 
-        isaLayout.planValueText.text = "${symbol}${String.format("%.2f", productsViewState.isa.planValue)}"
-        giaLayout.planValueText.text = "${symbol}${String.format("%.2f", productsViewState.gia.planValue)}"
-        lisaLayout.planValueText.text = "${symbol}${String.format("%.2f", productsViewState.lisa.planValue)}"
+        isaLayout.planValueText.text = PriceUtils.calculatePriceString(productsViewState.isa.planValue)
+        giaLayout.planValueText.text = PriceUtils.calculatePriceString(productsViewState.gia.planValue)
+        lisaLayout.planValueText.text = PriceUtils.calculatePriceString(productsViewState.lisa.planValue)
     }
 
     private fun setupProductsMoneybox(productsViewState: InvestorProductsViewState.ShowProducts) {
@@ -131,14 +129,20 @@ class DashboardFragment : BaseFragment() {
         giaLayout.moneyBoxLabel.text = "Moneybox:"
         lisaLayout.moneyBoxLabel.text = "Moneybox:"
 
-        isaLayout.moneyBoxText.text = "${symbol}${String.format("%.2f", productsViewState.isa.moneyBox)}"
-        giaLayout.moneyBoxText.text = "${symbol}${String.format("%.2f", productsViewState.gia.moneyBox)}"
-        lisaLayout.moneyBoxText.text = "${symbol}${String.format("%.2f", productsViewState.lisa.moneyBox)}"
+        isaLayout.moneyBoxText.text = PriceUtils.calculatePriceString(productsViewState.isa.moneyBox)
+        giaLayout.moneyBoxText.text = PriceUtils.calculatePriceString(productsViewState.gia.moneyBox)
+        lisaLayout.moneyBoxText.text = PriceUtils.calculatePriceString(productsViewState.lisa.moneyBox)
     }
 
-    private fun setupListeners() {
+    private fun setupListeners(productsViewState: InvestorProductsViewState.ShowProducts) {
         isaLayout.nextButton.setOnClickListener {
-            listener?.onISASelected()
+            listener?.onIsaSelected(productsViewState.isa)
+        }
+        giaLayout.nextButton.setOnClickListener {
+            listener?.onGiaSelected(productsViewState.gia)
+        }
+        lisaLayout.nextButton.setOnClickListener {
+            listener?.onLisaSelected(productsViewState.lisa)
         }
     }
     

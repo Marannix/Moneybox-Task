@@ -2,6 +2,9 @@ package com.example.minimoneybox.activity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.minimoneybox.R.id.fragmentContainer
+import com.example.minimoneybox.R.layout.activity_dashboard
+import com.example.minimoneybox.data.products.ProductResponses
 import com.example.minimoneybox.fragment.DashboardFragment
 import com.example.minimoneybox.fragment.InvestmentFragment
 
@@ -12,7 +15,7 @@ class DashboardActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.minimoneybox.R.layout.activity_dashboard)
+        setContentView(activity_dashboard)
 
         if (savedInstanceState == null) {
             initDashboardFragment()
@@ -24,15 +27,23 @@ class DashboardActivity : BaseActivity() {
     private fun initDashboardFragment() {
         val fragment = DashboardFragment.newInstance()
         fragment.attach(object : DashboardFragment.OnProductsSelectedListener {
-            override fun onISASelected() {
-                initInvestmentFragment()
+            override fun onIsaSelected(isa: ProductResponses) {
+                initInvestmentFragment(isa)
+            }
+
+            override fun onGiaSelected(gia: ProductResponses) {
+                initInvestmentFragment(gia)
+            }
+
+            override fun onLisaSelected(lisa: ProductResponses) {
+                initInvestmentFragment(lisa)
             }
         })
         replaceFragment(fragment)
     }
 
-    private fun initInvestmentFragment() {
-        val fragment = InvestmentFragment.newInstance()
+    private fun initInvestmentFragment(isa: ProductResponses) {
+        val fragment = InvestmentFragment.newInstance(isa)
         replaceFragment(fragment)
     }
 
@@ -44,7 +55,7 @@ class DashboardActivity : BaseActivity() {
         if (!fragmentPopped) {
             fragmentManager.beginTransaction()
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                .replace(com.example.minimoneybox.R.id.fragmentContainer, fragment)
+                .replace(fragmentContainer, fragment)
                 .addToBackStack(fragmentName)
                 .commit()
         }

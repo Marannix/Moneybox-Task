@@ -11,62 +11,64 @@
             android:id="@+id/investmentName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginStart="@dimen/margin_default"
-            android:fontFamily="sans-serif-black"
-            android:textSize="@dimen/text_style_medium"
-            android:textColor="@color/text_label_primary"
+            style="@style/InvestmentTextStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/investmentPlanValue"
+            app:layout_constraintBottom_toTopOf="@id/investmentPlanValueLabel"
             app:layout_constraintVertical_chainStyle="packed"/>
+
+    <TextView
+            android:id="@+id/investmentPlanValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/InvestmentTextStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/investmentPlanValue"
+            app:layout_constraintTop_toBottomOf="@id/investmentName"
+            app:layout_constraintBottom_toTopOf="@id/investmentMoneyBoxLabel"/>
 
     <TextView
             android:id="@+id/investmentPlanValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginStart="@dimen/margin_default"
-            android:fontFamily="sans-serif-black"
-            android:textSize="@dimen/text_style_medium"
-            android:textColor="@color/text_label_primary"
-            app:layout_constraintStart_toStartOf="parent"
+            style="@style/InvestmentTextStyle"
+            app:layout_constraintStart_toEndOf="@+id/investmentPlanValueLabel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/investmentName"
-            app:layout_constraintBottom_toTopOf="@id/investmentMoneyBox"/>
+            app:layout_constraintTop_toTopOf="@+id/investmentPlanValueLabel"
+            app:layout_constraintBottom_toBottomOf="@id/investmentPlanValueLabel"/>
+
+    <TextView
+            android:id="@+id/investmentMoneyBoxLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/InvestmentTextStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/investmentMoneyBox"
+            app:layout_constraintTop_toBottomOf="@id/investmentPlanValueLabel"
+            app:layout_constraintBottom_toTopOf="@id/investmentAddMoney"/>
 
     <TextView
             android:id="@+id/investmentMoneyBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginStart="@dimen/margin_default"
-            android:fontFamily="sans-serif-black"
-            android:textSize="@dimen/text_style_medium"
-            android:textColor="@color/text_label_primary"
-            app:layout_constraintStart_toStartOf="parent"
+            style="@style/InvestmentTextStyle"
+            app:layout_constraintStart_toEndOf="@+id/investmentMoneyBoxLabel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/investmentPlanValue"
-            app:layout_constraintBottom_toTopOf="@id/investmentAddMoney"/>
+            app:layout_constraintTop_toTopOf="@+id/investmentMoneyBoxLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/investmentMoneyBoxLabel"/>
 
     <Button
             android:id="@+id/investmentAddMoney"
             style="@style/Widget.Button.Colored.Rounded"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="@dimen/margin_default"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_margin="@dimen/margin_default"
             app:layout_constraintWidth_percent="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:text="@string/action_add_money"
-            app:layout_constraintTop_toBottomOf="@+id/investmentMoneyBox"/>
+            app:layout_constraintTop_toBottomOf="@+id/investmentMoneyBoxLabel"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
