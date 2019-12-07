@@ -1,0 +1,56 @@
+{
+  "User": {
+    "UserId": "2c0641c7-f12b-4e53-8c70-398eca4e427f",
+    "HasVerifiedEmail": true,
+    "IsPinSet": true,
+    "AmlStatus": "Clear",
+    "AmlAttempts": 1,
+    "RoundUpMode": "Off",
+    "JisaRoundUpMode": "Off",
+    "InvestorProduct": "",
+    "RegistrationStatus": "IsComplete",
+    "JisaRegistrationStatus": "None",
+    "DirectDebitMandateStatus": "Active",
+    "DateCreated": "2018-01-02T13:28:45.663",
+    "Animal": "Squirrel",
+    "ReferralCode": "QL64LT",
+    "IntercomHmac": "c52fbc50edaed2202ea9eebfb605ec342ca993b63fb05df37e8c54dacd7b0734",
+    "IntercomHmaciOS": "c52fbc50edaed2202ea9eebfb605ec342ca993b63fb05df37e8c54dacd7b0734",
+    "IntercomHmacAndroid": "0f82a992f371bd5734248a734e08b62e9a9a5df9801bff98fe910d1299c3d159",
+    "HasCompletedTutorial": false,
+    "LastPayment": 0.0,
+    "PreviousMoneyboxAmount": 0.00,
+    "MoneyboxRegistrationStatus": "IsComplete",
+    "Email": "androidtest@moneyboxapp.com",
+    "FirstName": "Sophie",
+    "LastName": "Dermaux",
+    "RoundUpWholePounds": true,
+    "DoubleRoundUps": false,
+    "MoneyboxAmount": 0.00,
+    "InvestmentTotal": 0.0,
+    "CanReinstateMandate": false,
+    "DirectDebitHasBeenSubmitted": true,
+    "MonthlyBoostEnabled": false,
+    "MonthlyBoostAmount": 0.00,
+    "MonthlyBoostDay": 1
+  },
+  "Session": {
+    "BearerToken": "tKhYGjvIadcjy2bCTTC3K1Rh9L54lcojHlLbGqlBmcg=",
+    "ExternalSessionId": "ba3c8854-b4b7-41a0-802e-21f98b997f90",
+    "SessionExternalId": "ba3c8854-b4b7-41a0-802e-21f98b997f90",
+    "ExpiryInSeconds": 0
+  },
+  "ActionMessage": {
+    "Type": "AddLink",
+    "Message": "Save little and often by rounding up your spending to the nearest pound.",
+    "Actions": [
+      {
+        "Label": "Connect an account",
+        "Amount": 0.0,
+        "Type": "AddLink",
+        "Animation": "None"
+      }
+    ]
+  },
+  "InformationMessage": "1 day until collection"
+}
