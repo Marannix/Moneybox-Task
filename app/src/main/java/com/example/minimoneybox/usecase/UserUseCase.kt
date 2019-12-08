@@ -19,7 +19,7 @@ class UserUseCase @Inject constructor(
                 // TODO: Maybe at this point check if either error 400, 401 or 500
                 if (error is HttpException) {
                     when (error.code()) {
-                        // Unable to get error code...??
+
                     }
                 }
                 UserDataState.Error(error.message)

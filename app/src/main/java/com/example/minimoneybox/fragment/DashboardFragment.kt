@@ -46,22 +46,21 @@ class DashboardFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
+        init()
+    }
+
+    private fun init() {
         loadingDialog = FullscreenLoadingDialog(requireContext()).apply {
             setCanceledOnTouchOutside(false)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewmodel = activity?.let { ViewModelProviders.of(it, viewModelFactory).get(InvestorProductsViewModel::class.java) }
-        if (savedInstanceState == null) {
-            getProducts()
-        }
+        viewmodel =
+            activity?.let { ViewModelProviders.of(it, viewModelFactory).get(InvestorProductsViewModel::class.java) }
         findLayouts()
-        setUserFullName()
+        getProducts()
         subscribeToProductsViewState()
+        setUserFullName()
     }
 
     private fun setUserFullName() {
@@ -73,7 +72,6 @@ class DashboardFragment : BaseFragment() {
     private fun getProducts() {
         // View can't be null since its called after onViewCreated(Assumption)
         viewmodel!!.getInvestorProductsInformation(userPreference.getToken())
-
     }
 
     private fun findLayouts() {
@@ -92,7 +90,6 @@ class DashboardFragment : BaseFragment() {
                 is InvestorProductsViewState.ShowProducts -> {
                     loadingDialog.dismiss()
                     // TODO: Improve the way I handle text
-                    // TODO: Find a way to double all numbers
                     totalPlan.text =
                         "Total Plan Value: ${PriceUtils.calculatePriceString(productsViewState.totalPlanValue)}"
                     setupProductsLabel(productsViewState)
@@ -146,5 +143,4 @@ class DashboardFragment : BaseFragment() {
             listener?.onLisaSelected(productsViewState.lisa)
         }
     }
-    
 }

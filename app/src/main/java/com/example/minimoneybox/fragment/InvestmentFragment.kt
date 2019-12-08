@@ -47,9 +47,9 @@ class InvestmentFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(com.example.minimoneybox.R.layout.fragment_investment, container, false)
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    
+    override fun onStart() {
+        super.onStart()
         viewmodel =
             activity?.let { ViewModelProviders.of(it, viewModelFactory).get(InvestorProductsViewModel::class.java) }!!
         display()
@@ -82,6 +82,7 @@ class InvestmentFragment : BaseFragment() {
                     Toast.makeText(requireContext(), "Making payment", Toast.LENGTH_SHORT).show()
                 }
                 is InvestedMoneyboxViewState.ShowUpdatedMoneyBox -> {
+                    viewmodel.paymentViewState.postValue(null)
                     returnToDashboard()
                 }
                 is InvestedMoneyboxViewState.ShowError -> {
@@ -94,7 +95,6 @@ class InvestmentFragment : BaseFragment() {
 
     private fun returnToDashboard() {
         // Added a delay to simulate updating
-        investmentAddMoney.setOnClickListener(null)
         val handler = Handler()
         handler.postDelayed({ loadingDialog.dismiss()}, 4000)
         // TODO: Fix current bug, unable to go back into InvestmentFragment
