@@ -35,4 +35,11 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            finish()
+        } else {
+            supportFragmentManager.popBackStack()
+        }
+    }
 }

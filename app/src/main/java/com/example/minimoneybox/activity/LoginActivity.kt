@@ -2,7 +2,6 @@ package com.example.minimoneybox.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.example.minimoneybox.R
 import com.example.minimoneybox.fragment.LoginFragment
 
@@ -15,7 +14,6 @@ class LoginActivity : BaseActivity() {
             true -> launchDashboardActivity()
             false ->  launchLoginFragment()
         }
-        launchLoginFragment()
     }
 
     private fun launchLoginFragment() {
@@ -25,7 +23,7 @@ class LoginActivity : BaseActivity() {
                 launchDashboardActivity()
             }
         })
-        replaceFragment(fragment)
+        addFragment(fragment)
     }
 
     private fun launchDashboardActivity() {
@@ -35,17 +33,5 @@ class LoginActivity : BaseActivity() {
     }
 
     //Fragment is created twice at launch? Replace fragment instead of adding to avoid duplicated fragment shown
-    private fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentPopped = fragmentManager.popBackStackImmediate(fragment.javaClass.name, 0)
-
-        if (!fragmentPopped) {
-            fragmentManager.beginTransaction()
-                .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                .replace(R.id.fragmentContainer, fragment)
-                .addToBackStack(fragment.javaClass.name)
-                .commit()
-        }
-    }
 
 }
