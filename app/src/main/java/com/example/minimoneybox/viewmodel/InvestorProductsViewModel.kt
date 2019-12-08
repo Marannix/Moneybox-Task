@@ -30,9 +30,9 @@ class InvestorProductsViewModel @Inject constructor(
                                 investorProductsDataState.investorProducts[0],
                                 investorProductsDataState.investorProducts[1],
                                 investorProductsDataState.investorProducts[2],
+                                //TODO: Find a better way to get this value
                                 investorProductsUseCase.getTotalPlanValue().value!!
                                 // Maybe I should just pass the entire investorProducts cause this is weird
-//                                investorProductsDataState.investorProducts.totalPlanValue
                             )
                         }
                         is InvestorProductsDataState.Error -> {

@@ -1,0 +1,135 @@
+{
+  "MoneyboxEndOfTaxYear": "2020-04-01T00:00:00.000",
+  "TotalPlanValue": 8364.50,
+  "TotalEarnings": 198.50,
+  "TotalContributionsNet": 8166.00,
+  "TotalEarningsAsPercentage": 2.43,
+  "ProductResponses": [
+    {
+      "Id": 3760,
+      "PlanValue": 3226.58,
+      "Moneybox": 3903.00,
+      "SubscriptionAmount": 25.00,
+      "TotalFees": 0.42,
+      "IsSelected": false,
+      "IsFavourite": false,
+      "CollectionDayMessage": "This will be collected midday today",
+      "Product": {
+        "Id": 1,
+        "Name": "ISA",
+        "CategoryType": "Investment",
+        "Type": "Isa",
+        "FriendlyName": "Stocks & Shares ISA",
+        "CanWithdraw": true,
+        "ProductHexCode": "#c5d561",
+        "AnnualLimit": 20000.00,
+        "DepositLimit": 0.00,
+        "MinimumWeeklyDeposit": 2.0,
+        "MaximumWeeklyDeposit": 400.0
+      },
+      "InvestorAccount": {
+        "ContributionsNet": 3227.00,
+        "EarningsNet": -0.42,
+        "EarningsAsPercentage": -0.01
+      },
+      "Personalisation": {
+        "QuickAddDeposit": {
+          "Amount": 1.00
+        },
+        "HideAccounts": {
+          "Enabled": false,
+          "IsHidden": false,
+          "Sequence": 1
+        }
+      },
+      "Contributions": {
+        "Status": "Enabled"
+      }
+    },
+    {
+      "Id": 749,
+      "PlanValue": 4081.98,
+      "Moneybox": 3140.00,
+      "SubscriptionAmount": 0.0,
+      "TotalFees": 1.01,
+      "IsSelected": false,
+      "IsFavourite": true,
+      "CollectionDayMessage": "",
+      "Product": {
+        "Lisa": {
+          "MaximumBonus": 1000.0000
+        },
+        "Id": 4,
+        "Name": "LISA",
+        "CategoryType": "Investment",
+        "Type": "Lisa",
+        "FriendlyName": "Lifetime ISA",
+        "CanWithdraw": false,
+        "ProductHexCode": "#49bfbd",
+        "AnnualLimit": 4000.00,
+        "DepositLimit": 0.00,
+        "MinimumWeeklyDeposit": 2.0,
+        "MaximumWeeklyDeposit": 400.0
+      },
+      "InvestorAccount": {
+        "ContributionsNet": 3908.00,
+        "EarningsNet": 173.98,
+        "EarningsAsPercentage": 4.45
+      },
+      "Personalisation": {
+        "QuickAddDeposit": {
+          "Amount": 20.00
+        },
+        "HideAccounts": {
+          "Enabled": false,
+          "IsHidden": false,
+          "Sequence": 2
+        }
+      },
+      "Contributions": {
+        "Status": "Enabled"
+      }
+    },
+    {
+      "Id": 3761,
+      "PlanValue": 1055.94,
+      "Moneybox": 1489.00,
+      "SubscriptionAmount": 25.00,
+      "TotalFees": 0.08,
+      "IsSelected": true,
+      "IsFavourite": false,
+      "CollectionDayMessage": "This will be collected midday today",
+      "Product": {
+        "Id": 2,
+        "Name": "GIA",
+        "CategoryType": "Investment",
+        "Type": "Gia",
+        "FriendlyName": "General Investment Account",
+        "CanWithdraw": true,
+        "ProductHexCode": "#546270",
+        "AnnualLimit": 0.00,
+        "DepositLimit": 20000.00,
+        "MinimumWeeklyDeposit": 2.0,
+        "MaximumWeeklyDeposit": 400.0
+      },
+      "InvestorAccount": {
+        "ContributionsNet": 1031.00,
+        "EarningsNet": 24.94,
+        "EarningsAsPercentage": 2.42
+      },
+      "Personalisation": {
+        "QuickAddDeposit": {
+          "Amount": 2.00
+        },
+        "HideAccounts": {
+          "Enabled": false,
+          "IsHidden": false,
+          "Sequence": 3
+        }
+      },
+      "Contributions": {
+        "Status": "Enabled"
+      }
+    }
+  ]
+}
