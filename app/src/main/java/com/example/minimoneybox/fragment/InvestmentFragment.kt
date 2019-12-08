@@ -70,7 +70,7 @@ class InvestmentFragment : BaseFragment() {
 
     private fun setPaymentListener() {
         investmentAddMoney.setOnClickListener {
-            viewmodel.makePayment(userPreference.getToken(), 10, products.id)
+            viewmodel.makePayment(userPreference.getToken(), products.moneyBox, 10, products.id)
         }
     }
 
@@ -83,6 +83,7 @@ class InvestmentFragment : BaseFragment() {
                 }
                 is InvestedMoneyboxViewState.ShowUpdatedMoneyBox -> {
                     viewmodel.paymentViewState.postValue(null)
+                    viewmodel.getInvestorProductsInformation(userPreference.getToken())
                     returnToDashboard()
                 }
                 is InvestedMoneyboxViewState.ShowError -> {

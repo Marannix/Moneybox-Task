@@ -21,10 +21,11 @@ class InvestorProductsUseCase @Inject constructor(
 
     fun makeOneOffPayment(
         token: String,
+        moneybox: Double,
         amount: Int,
         investorProductId: Int
     ): Observable<InvestedMoneyboxDataState> {
-        return productsRepository.makeOneOffPayment(token, amount, investorProductId)
+        return productsRepository.makeOneOffPayment(token, moneybox, amount, investorProductId)
             .map<InvestedMoneyboxDataState> { response ->
                 InvestedMoneyboxDataState.Success(response)
             }.doOnError { error ->

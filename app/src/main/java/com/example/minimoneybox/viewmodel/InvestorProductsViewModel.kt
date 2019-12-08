@@ -27,11 +27,12 @@ class InvestorProductsViewModel @Inject constructor(
                         is InvestorProductsDataState.Success -> {
                             // TODO Find a better way to retrieve the products, maybe check if the name matches?
                             InvestorProductsViewState.ShowProducts(
-                                investorProductsDataState.investorProducts.productResponses[0],
-                                investorProductsDataState.investorProducts.productResponses[1],
-                                investorProductsDataState.investorProducts.productResponses[2],
+                                investorProductsDataState.investorProducts[0],
+                                investorProductsDataState.investorProducts[1],
+                                investorProductsDataState.investorProducts[2],
+                                6.78
                                 // Maybe I should just pass the entire investorProducts cause this is weird
-                                investorProductsDataState.investorProducts.totalPlanValue
+//                                investorProductsDataState.investorProducts.totalPlanValue
                             )
                         }
                         is InvestorProductsDataState.Error -> {
@@ -48,9 +49,9 @@ class InvestorProductsViewModel @Inject constructor(
         )
     }
 
-    fun makePayment(token: String, amount: Int, investorProductId: Int) {
+    fun makePayment(token: String, moneybox: Double, amount: Int, investorProductId: Int) {
         disposables.add(
-            investorProductsUseCase.makeOneOffPayment(token, amount, investorProductId).observeOn(AndroidSchedulers.mainThread())
+            investorProductsUseCase.makeOneOffPayment(token, moneybox, amount, investorProductId).observeOn(AndroidSchedulers.mainThread())
                 .map { datastate ->
                     return@map when (datastate) {
                         is InvestedMoneyboxDataState.Success -> {
