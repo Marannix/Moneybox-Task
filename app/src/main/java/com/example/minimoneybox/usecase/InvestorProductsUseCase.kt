@@ -1,10 +1,12 @@
 package com.example.minimoneybox.usecase
 
 import androidx.lifecycle.MutableLiveData
+import com.example.minimoneybox.R
 import com.example.minimoneybox.repository.ProductsRepository
 import com.example.minimoneybox.state.InvestedMoneyboxDataState
 import com.example.minimoneybox.state.InvestorProductsDataState
 import io.reactivex.Observable
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class InvestorProductsUseCase @Inject constructor(
@@ -16,7 +18,15 @@ class InvestorProductsUseCase @Inject constructor(
             .map<InvestorProductsDataState> { products ->
                 InvestorProductsDataState.Success(products)
             }.doOnError { error ->
-                InvestorProductsDataState.Error(error.message)
+                if (error is HttpException) {
+                    if (error.code() == 401) {
+                        InvestorProductsDataState.Error(R.string.session_expired_error, error.code())
+                    }
+                } else {
+                    // Not sure what error
+                    InvestorProductsDataState.UnknownError(error.message, 0)
+                }
+
             }
     }
 

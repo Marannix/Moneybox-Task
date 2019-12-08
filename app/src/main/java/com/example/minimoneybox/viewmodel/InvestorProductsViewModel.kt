@@ -2,6 +2,7 @@ package com.example.minimoneybox.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.minimoneybox.R
 import com.example.minimoneybox.state.InvestedMoneyboxDataState
 import com.example.minimoneybox.state.InvestedMoneyboxViewState
 import com.example.minimoneybox.state.InvestorProductsDataState
@@ -9,6 +10,7 @@ import com.example.minimoneybox.state.InvestorProductsViewState
 import com.example.minimoneybox.usecase.InvestorProductsUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class InvestorProductsViewModel @Inject constructor(
@@ -21,7 +23,8 @@ class InvestorProductsViewModel @Inject constructor(
 
     fun getInvestorProductsInformation(token: String) {
         disposables.add(
-            investorProductsUseCase.getInvestorProductsDataState(token).observeOn(AndroidSchedulers.mainThread())
+            investorProductsUseCase.getInvestorProductsDataState(token)
+                .observeOn(AndroidSchedulers.mainThread())
                 .map { investorProductsDataState ->
                     return@map when (investorProductsDataState) {
                         is InvestorProductsDataState.Success -> {
@@ -36,15 +39,27 @@ class InvestorProductsViewModel @Inject constructor(
                             )
                         }
                         is InvestorProductsDataState.Error -> {
-                            InvestorProductsViewState.ShowError(investorProductsDataState.errorMessage)
+                            InvestorProductsViewState.ShowError(investorProductsDataState.errorMessage, investorProductsDataState.errorCode)
+                        }
+                        is InvestorProductsDataState.UnknownError -> {
+                            InvestorProductsViewState.ShowUnknownError(investorProductsDataState.errorMessage, investorProductsDataState.errorCode)
                         }
                     }
                 }.doOnSubscribe { viewState.value = InvestorProductsViewState.Loading }
                 .subscribe({
                     this.viewState.value = it
-                }, {
+                }, {error ->
                     //Added this to prevent crashing when device goes offline
-                    this.viewState.value = InvestorProductsViewState.ShowError(it.message)
+                    if (error is HttpException) {
+                        if (error.code() == 401) {
+                            this.viewState.value = InvestorProductsViewState.ShowError(R.string.session_expired_error, error.code())
+                        }
+                    } else {
+                        // Not sure what error
+                        this.viewState.value =  InvestorProductsViewState.ShowUnknownError(error.message, 0)
+                    }
+
+//                    this.viewState.value = InvestorProductsViewState.ShowUnknownError(it.message, 0)
                 })
         )
     }

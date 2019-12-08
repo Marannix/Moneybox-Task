@@ -30,12 +30,12 @@ class DashboardActivity : BaseActivity() {
                 initInvestmentFragment(lisa)
             }
         })
-        replaceFragment(fragment)
+        addFragment(fragment)
     }
 
     private fun initInvestmentFragment(isa: ProductResponses) {
         val fragment = InvestmentFragment.newInstance(isa)
-        replaceFragment(fragment)
+        addFragment(fragment)
     }
 
     override fun onBackPressed() {

@@ -16,7 +16,6 @@ class PreferencesHelper @Inject constructor(
 
     var userPreference = context.getSharedPreferences(prefUserToken, Context.MODE_PRIVATE)!!
 
-
     fun setUserHasLoggedIn(hasLoggedIn: Boolean) {
         userPreference.edit().putBoolean(prefUserLoggedIn, hasLoggedIn).apply()
     }

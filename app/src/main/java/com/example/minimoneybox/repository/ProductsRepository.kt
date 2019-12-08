@@ -45,10 +45,6 @@ class ProductsRepository @Inject constructor(
             .toObservable()
     }
 
-    fun totalPlanValue() {
-
-    }
-
     private fun storeProductsInDb(investorProducts: List<ProductResponses>) {
         productsDao.insertProducts(investorProducts)
     }

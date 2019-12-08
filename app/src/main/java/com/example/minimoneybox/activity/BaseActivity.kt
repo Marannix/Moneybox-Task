@@ -21,7 +21,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState, persistentState)
     }
 
-    fun replaceFragment(fragment: Fragment) {
+    fun addFragment(fragment: Fragment) {
         fragmentName = fragment.javaClass.name
         val fragmentManager = supportFragmentManager
         val fragmentPopped = fragmentManager.popBackStackImmediate(fragmentName, 0)

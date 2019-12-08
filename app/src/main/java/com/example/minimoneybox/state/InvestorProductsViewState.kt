@@ -10,5 +10,6 @@ sealed class InvestorProductsViewState {
         val gia: ProductResponses,
         val totalPlanValue: Double
     ) : InvestorProductsViewState()
-    data class ShowError(val errorMessage: String?) : InvestorProductsViewState()
+    data class ShowError(val errorMessage: Int, val errorCode: Int?) : InvestorProductsViewState()
+    data class ShowUnknownError(val errorMessage: String?, val errorCode: Int?) : InvestorProductsViewState()
 }

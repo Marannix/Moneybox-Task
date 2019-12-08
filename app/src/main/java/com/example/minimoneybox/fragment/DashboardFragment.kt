@@ -15,6 +15,7 @@ import com.example.minimoneybox.state.InvestorProductsViewState
 import com.example.minimoneybox.utils.PriceUtils
 import com.example.minimoneybox.viewmodel.InvestorProductsViewModel
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.saving_plan_layout.view.*
 
@@ -70,7 +71,6 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun getProducts() {
-        // View can't be null since its called after onViewCreated(Assumption)
         viewmodel!!.getInvestorProductsInformation(userPreference.getToken())
     }
 
@@ -85,7 +85,6 @@ class DashboardFragment : BaseFragment() {
             when (productsViewState) {
                 InvestorProductsViewState.Loading -> {
                     loadingDialog.show()
-                    Toast.makeText(requireContext(), "Loading Products", Toast.LENGTH_SHORT).show()
                 }
                 is InvestorProductsViewState.ShowProducts -> {
                     loadingDialog.dismiss()
@@ -99,8 +98,18 @@ class DashboardFragment : BaseFragment() {
                 }
                 is InvestorProductsViewState.ShowError -> {
                     loadingDialog.dismiss()
-                    Toast.makeText(requireContext(), "Products: $productsViewState.errorMessage", Toast.LENGTH_SHORT)
-                        .show()
+                    if (productsViewState.errorCode == 401) {
+                        userPreference.setUserHasLoggedIn(false)
+                        Snackbar.make(this.view!!, getString(productsViewState.errorMessage), Snackbar.LENGTH_LONG)
+                            .show()
+                    } else {
+                        Toast.makeText(requireContext(), "Products: $productsViewState.errorMessage", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                }
+                is InvestorProductsViewState.ShowUnknownError -> {
+                    Toast.makeText(requireContext(), productsViewState.errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })

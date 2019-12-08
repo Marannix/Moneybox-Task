@@ -22,4 +22,8 @@
 
     <!-- Strings related to investment deposit -->
     <string name="action_add_money">Add £10</string>
+
+    <!-- Strings related to error -->
+    <string name="session_expired_error">Your session has expired. Please close the app and log in again.</string>
+
 </resources>
