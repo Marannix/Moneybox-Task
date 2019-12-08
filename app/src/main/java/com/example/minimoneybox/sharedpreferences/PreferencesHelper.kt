@@ -8,7 +8,7 @@ import javax.inject.Singleton
 class PreferencesHelper @Inject constructor(
     context: Context
 ) {
-    
+
     private var prefUserToken = "moneybox_user_preference"
     private var prefKeyToken = "key_token_object"
     private var prefUserFullName = "key_user_full_name"

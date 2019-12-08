@@ -14,16 +14,6 @@ class ProductsRepository @Inject constructor(
     private val productsApi: ProductsApi
 ) {
 
-
-//    fun getCharacters(): Observable<List<CharactersResults>> {
-//        // Added concatArrayEagerDelayError to repository when fetching data from api and database,
-//        //  it delays any errors (no network from api) until both api and database source terminate
-//        return Observable.concatArrayEagerDelayError(
-//            getCharactersFromApi(1).toObservable(),
-//            getCharactersFromDb()
-//        )
-//    }
-
     fun getInvestorProducts(token: String): Observable<List<ProductResponses>> {
         return Observable.concatArrayEagerDelayError(
             getInvestorProductsFromApi(token).toObservable(),
@@ -31,16 +21,6 @@ class ProductsRepository @Inject constructor(
         )
     }
 
-    //
-
-
-//    fun getInvestorProducts(token: String): Observable<InvestorProducts> {
-//        return getInvestorProductsFromApi(token).toObservable()
-//    }
-
-    // TODO: I wouldn't really need to save this information when the user is offline
-    // Would think normally bank would ask the user to signin again with their pin
-    // NOTE: Maybe I do as when the figure updates I want to update and retrieve from DB?
     private fun getInvestorProductsFromApi(token: String) : Single<List<ProductResponses>> {
         return productsApi.getInvestorProducts(token)
             .doOnSuccess {investorProducts ->
