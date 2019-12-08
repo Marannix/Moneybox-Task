@@ -9,7 +9,7 @@
     <View
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:alpha="0.8"
+            android:alpha="0.55"
             android:background="?attr/colorPrimary"
     />
 

@@ -21,8 +21,8 @@ class PreferencesHelper @Inject constructor(
         userPreference.edit().putBoolean(prefUserLoggedIn, hasLoggedIn).apply()
     }
 
-    fun getHasUserLoggedIn() {
-        userPreference.getBoolean(prefUserLoggedIn, false)
+    fun hasUserLoggedIn(): Boolean {
+        return userPreference.getBoolean(prefUserLoggedIn, false)
     }
 
     fun setToken(token: String) {
