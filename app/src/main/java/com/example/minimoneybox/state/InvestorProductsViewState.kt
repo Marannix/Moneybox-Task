@@ -4,7 +4,7 @@ import com.example.minimoneybox.data.products.ProductResponses
 
 sealed class InvestorProductsViewState {
     object Loading : InvestorProductsViewState()
-    data class ShowProducts(
+    data class ShowProducts (
         val isa: ProductResponses,
         val lisa: ProductResponses,
         val gia: ProductResponses,
