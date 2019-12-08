@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
 import com.example.minimoneybox.design.FullscreenLoadingDialog
-import com.example.minimoneybox.sharedpreferences.PreferencesHelper
 import com.example.minimoneybox.state.UserViewState
 import com.example.minimoneybox.viewmodel.UsersViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -73,6 +72,7 @@ class LoginActivity : BaseActivity() {
     private fun storeUserInformation(bearerToken: String) {
         userPreference.setUserFullName(et_name.text.toString())
         userPreference.setToken("Bearer $bearerToken")
+        userPreference.setUserHasLoggedIn(true)
     }
 
     private fun launchDashboard() {

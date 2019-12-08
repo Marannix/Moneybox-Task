@@ -12,8 +12,18 @@ class PreferencesHelper @Inject constructor(
     private var prefUserToken = "moneybox_user_preference"
     private var prefKeyToken = "key_token_object"
     private var prefUserFullName = "key_user_full_name"
+    private var prefUserLoggedIn = "key_user_logged_in"
 
     var userPreference = context.getSharedPreferences(prefUserToken, Context.MODE_PRIVATE)!!
+
+
+    fun setUserHasLoggedIn(hasLoggedIn: Boolean) {
+        userPreference.edit().putBoolean(prefUserLoggedIn, hasLoggedIn).apply()
+    }
+
+    fun getHasUserLoggedIn() {
+        userPreference.getBoolean(prefUserLoggedIn, false)
+    }
 
     fun setToken(token: String) {
         userPreference.edit().putString(prefKeyToken, token).apply()
