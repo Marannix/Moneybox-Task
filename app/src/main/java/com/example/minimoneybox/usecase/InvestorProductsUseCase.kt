@@ -1,5 +1,6 @@
 package com.example.minimoneybox.usecase
 
+import androidx.lifecycle.MutableLiveData
 import com.example.minimoneybox.repository.ProductsRepository
 import com.example.minimoneybox.state.InvestedMoneyboxDataState
 import com.example.minimoneybox.state.InvestorProductsDataState
@@ -31,6 +32,10 @@ class InvestorProductsUseCase @Inject constructor(
             }.doOnError { error ->
                 InvestedMoneyboxDataState.Error(error.message)
             }
+    }
+
+    fun getTotalPlanValue(): MutableLiveData<Double> {
+        return productsRepository.totalValue
     }
 
 }

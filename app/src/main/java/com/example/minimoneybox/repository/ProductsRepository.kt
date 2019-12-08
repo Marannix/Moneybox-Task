@@ -1,5 +1,6 @@
 package com.example.minimoneybox.repository
 
+import androidx.lifecycle.MutableLiveData
 import com.example.minimoneybox.api.ProductsApi
 import com.example.minimoneybox.data.ProductsDao
 import com.example.minimoneybox.data.products.InvestedMoneyboxResponse
@@ -14,6 +15,8 @@ class ProductsRepository @Inject constructor(
     private val productsApi: ProductsApi
 ) {
 
+    val totalValue = MutableLiveData<Double>()
+
     fun getInvestorProducts(token: String): Observable<List<ProductResponses>> {
         return Observable.concatArrayEagerDelayError(
             getInvestorProductsFromApi(token).toObservable(),
@@ -25,6 +28,7 @@ class ProductsRepository @Inject constructor(
         return productsApi.getInvestorProducts(token)
             .doOnSuccess {investorProducts ->
                 storeProductsInDb(investorProducts.productResponses)
+                totalValue.postValue(investorProducts.totalPlanValue)
             }.map {
                 it.productResponses
             }
@@ -39,6 +43,10 @@ class ProductsRepository @Inject constructor(
                 updateMoneyBox(newMoneyBoxValue, id)
             }
             .toObservable()
+    }
+
+    fun totalPlanValue() {
+
     }
 
     private fun storeProductsInDb(investorProducts: List<ProductResponses>) {
