@@ -36,6 +36,17 @@ class UsersViewModel @Inject constructor(
         )
     }
 
+//    fun validateEmailCredentials(
+//        email: String,
+//        password: String
+//    ): Single<Pair<FormValidator.ValidationResult, FormValidator.ValidationResult>> {
+//        return Single.fromCallable {
+//            val emailValidation = formValidator.validateEmail(email)
+//            val passwordValidation = formValidator.validatePassword(password)
+//            Pair(emailValidation, passwordValidation)
+//        }
+//    }
+
     override fun onCleared() {
         super.onCleared()
         disposables.clear()
