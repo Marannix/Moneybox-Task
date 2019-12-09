@@ -6,5 +6,5 @@ sealed class UserDataState {
     data class Success(val user: UserResponse) : UserDataState()
 
     //TODO: Use this to display error message if incorrect Username or Password
-    data class Error(val errorMessage: String?) : UserDataState()
+    data class Error(val errorMessage: Throwable) : UserDataState()
 }

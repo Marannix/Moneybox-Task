@@ -20,6 +20,7 @@ class InvestorProductsUseCase @Inject constructor(
             }.doOnError { error ->
                 if (error is HttpException) {
                     if (error.code() == 401) {
+                        error.response().errorBody()
                         InvestorProductsDataState.Error(R.string.session_expired_error, error.code())
                     }
                 } else {

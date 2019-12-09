@@ -9,11 +9,16 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
+import com.example.minimoneybox.data.error.SignInErrorResponse
+import com.example.minimoneybox.data.error.SignInValidationResponse
 import com.example.minimoneybox.design.FullscreenLoadingDialog
+import com.example.minimoneybox.model.AuthModel
 import com.example.minimoneybox.state.UserViewState
 import com.example.minimoneybox.viewmodel.UsersViewModel
+import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_login.*
+import retrofit2.HttpException
 
 /**
  * A login screen that offers login via email/password.
@@ -41,10 +46,7 @@ class LoginFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
-    private val userViewModel: UsersViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory)
-            .get(UsersViewModel::class.java)
-    }
+    private lateinit var userViewModel: UsersViewModel
 
     override fun onStart() {
         super.onStart()
@@ -55,6 +57,8 @@ class LoginFragment : BaseFragment() {
         loadingDialog = FullscreenLoadingDialog(requireContext()).apply {
             setCanceledOnTouchOutside(false)
         }
+        userViewModel =        ViewModelProviders.of(this, viewModelFactory)
+            .get(UsersViewModel::class.java)
         setupViews()
         loginTimeSaver()
     }
@@ -63,6 +67,7 @@ class LoginFragment : BaseFragment() {
         btn_sign_in.setOnClickListener {
             animation.playAnimation()
             userViewModel.getUserInformation(et_email.text.toString(), et_password.text.toString())
+
             userViewModel.viewState.observe(this, Observer {
                 when (it) {
                     UserViewState.Loading -> {
@@ -79,7 +84,28 @@ class LoginFragment : BaseFragment() {
                         loadingDialog.dismiss()
                         // Need to collect errors
                         //{"Name":"Login failed","Message":"Incorrect email address or password. Please check and try again.","ValidationErrors":[]}
-                        Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
+                        if (it.errorMessage is HttpException) {
+                            if (it.errorMessage.code() == 401) {
+                                val signInError = Gson().fromJson<SignInErrorResponse>(
+                                    it.errorMessage.response().errorBody()?.charStream(),
+                                    SignInErrorResponse::class.java
+                                )
+                                Toast.makeText(requireContext(), signInError.message, Toast.LENGTH_SHORT).show()
+                                AuthModel.SignInException(signInError)
+
+                            } else if (it.errorMessage.code() == 400) {
+                                val signInValidationError = Gson().fromJson<SignInValidationResponse>(
+                                    it.errorMessage.response().errorBody()?.charStream(),
+                                    SignInValidationResponse::class.java
+                                )
+
+                                Toast.makeText(requireContext(), signInValidationError.name, Toast.LENGTH_SHORT).show()
+
+                                AuthModel.SignInValidationException(signInValidationError)
+                            }
+
+                        }
+
                     }
                 }
             })

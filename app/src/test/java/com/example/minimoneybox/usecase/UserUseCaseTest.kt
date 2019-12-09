@@ -42,7 +42,7 @@ class UserUseCaseTest {
     private lateinit var userResponse: UserResponse
     private lateinit var state: UserDataState
     private lateinit var expectedSuccessState: UserDataState.Success
-    private val expectedErrorState = UserDataState.Error(a_user_error_message)
+    private val expectedErrorState = UserDataState.Error(Throwable("a_user_error_message"))
 
     @Before
     fun setUp() {
@@ -53,7 +53,7 @@ class UserUseCaseTest {
 
     @Test
     fun `when network succeed, emit data success state`() {
-        Mockito.`when`(api.logInUser(a_user_email, a_user_password, a_user_idfa)).thenReturn(Single.just(userResponse))
+      Mockito.`when`(api.logInUser(a_user_email, a_user_password, a_user_idfa)).thenReturn(Single.just(userResponse))
 
         userUseCase.getUserDataState(a_user_email, a_user_password).subscribe {
             state = it

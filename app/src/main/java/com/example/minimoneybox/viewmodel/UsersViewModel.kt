@@ -27,6 +27,7 @@ class UsersViewModel @Inject constructor(
                         }
                         is UserDataState.Error -> {
                             UserViewState.ShowError(userDataState.errorMessage)
+
                         }
                     }
                 }.doOnSubscribe { viewState.value = UserViewState.Loading }
