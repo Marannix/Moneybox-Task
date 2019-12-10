@@ -52,6 +52,13 @@ class ProductsRepository @Inject constructor(
     private fun getInvestorProductsFromDb(): Observable<List<ProductResponses>>? {
         return productsDao.getInvestorProducts()
             .toObservable()
+            .flatMap { list ->
+                return@flatMap if (list.isEmpty()) {
+                    Observable.empty()
+                } else {
+                    Observable.just(list)
+                }
+            }
     }
 
     private fun updateMoneyBox(moneyBox: Double, productId: Int) {

@@ -18,7 +18,6 @@ import com.example.minimoneybox.viewmodel.InvestorProductsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_investment.*
 
-
 private const val ARG_PRODUCTS = "products"
 
 class InvestmentFragment : BaseFragment() {

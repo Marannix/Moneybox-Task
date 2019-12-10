@@ -55,8 +55,8 @@ class UserUseCaseTest {
     fun `when network succeed, emit data success state`() {
         Mockito.`when`(api.logInUser(a_user_email, a_user_password, a_user_idfa)).thenReturn(Single.just(userResponse))
 
-        userUseCase.getUserDataState(a_user_email, a_user_password).subscribe {
-            state = it
+        userUseCase.getUserDataState(a_user_email, a_user_password).subscribe { dataState ->
+            state = dataState
         }
 
         Assert.assertEquals(state, expectedSuccessState)
@@ -67,8 +67,8 @@ class UserUseCaseTest {
         Mockito.`when`(api.logInUser(a_wrong_email, a_wrong_password, a_user_idfa))
             .thenReturn(Single.error(Throwable(a_user_error_message)))
 
-        userUseCase.getUserDataState(a_wrong_email, a_wrong_password).subscribe {
-            state = it
+        userUseCase.getUserDataState(a_wrong_email, a_wrong_password).subscribe { dataState ->
+            state = dataState
         }
 
         Assert.assertEquals(state, expectedErrorState)
