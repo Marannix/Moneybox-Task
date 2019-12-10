@@ -77,18 +77,14 @@ class LoginFragment : BaseFragment() {
             when (it) {
                 UserViewState.Loading -> {
                     loadingDialog.show()
-                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                 }
                 is UserViewState.ShowUser -> {
                     loadingDialog.dismiss()
-                    Toast.makeText(requireContext(), "Launching Dashboard", Toast.LENGTH_SHORT).show()
                     storeUserInformation(it.user.session.bearerToken)
                     listener?.onLoginSuccess()
                 }
                 is UserViewState.ShowError -> {
                     loadingDialog.dismiss()
-                    // Need to collect errors
-                    //{"Name":"Login failed","Message":"Incorrect email address or password. Please check and try again.","ValidationErrors":[]}
                     Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -151,9 +147,9 @@ class LoginFragment : BaseFragment() {
     private fun loginTimeSaver() {
         // Long press login button to populate the fields
         btn_sign_in.setOnLongClickListener {
-            et_email.setText("androidtest@moneyboxapp.com")
-            et_password.setText("P455word12")
-            et_name.setText("Money")
+            et_email.setText(getString(R.string.test_email_address))
+            et_password.setText(getString(R.string.test_password))
+            et_name.setText(getString(R.string.test_full_name))
             true
         }
     }
