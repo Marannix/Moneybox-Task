@@ -71,9 +71,12 @@ class LoginFragment : BaseFragment() {
         }
     }
 
+    /**
+     * The UI is updated based on the view state emitted from the viewmodel
+     */
     private fun login() {
         userViewModel.getUserInformation(et_email.text.toString(), et_password.text.toString())
-        userViewModel.viewState.observe(this, Observer {viewstate ->
+        userViewModel.viewState.observe(this, Observer { viewstate ->
             when (viewstate) {
                 UserViewState.Loading -> {
                     loadingDialog.show()
@@ -92,6 +95,9 @@ class LoginFragment : BaseFragment() {
         })
     }
 
+    /**
+     * Only login if both email and password is valid
+     */
     private fun loginValidationCheck(email: String, password: String) {
         //Would be nice if both checks are done together
         if (validUserInformation(email) && validPasswordInformation(password)) {
@@ -99,6 +105,9 @@ class LoginFragment : BaseFragment() {
         }
     }
 
+    /**
+     * Manually validate the email without calling the api, based on the validation the UI is updated
+     */
     private fun validUserInformation(email: String): Boolean {
         return when {
             formValidator.validateEmail(email) == FormValidator.ValidationResult.VALID -> {
@@ -119,6 +128,9 @@ class LoginFragment : BaseFragment() {
         }
     }
 
+    /**
+     * Manually validate the password without calling the api, based on the validation the UI is updated
+     */
     private fun validPasswordInformation(password: String): Boolean {
         return when {
             formValidator.validatePassword(password) == FormValidator.ValidationResult.VALID -> {
@@ -144,9 +156,11 @@ class LoginFragment : BaseFragment() {
         userPreference.setUserHasLoggedIn(true)
     }
 
-
+    /**
+     * Writing the information over and over again would be too tiring (This is something that would be in the debug build)
+     * Long press login button to populate the fields
+     */
     private fun loginTimeSaver() {
-        // Long press login button to populate the fields
         btn_sign_in.setOnLongClickListener {
             et_email.setText(getString(R.string.test_email_address))
             et_password.setText(getString(R.string.test_password))

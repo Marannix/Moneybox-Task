@@ -21,6 +21,10 @@ class InvestorProductsViewModel @Inject constructor(
     val viewState = MutableLiveData<InvestorProductsViewState>()
     val paymentViewState = MutableLiveData<InvestedMoneyboxViewState>()
 
+    /**
+     * Return a investment view state to the viewmodel which will contain either emit success or an error state
+     * based on the data state from the use case
+     */
     fun getInvestorProductsInformation(token: String) {
         disposables.add(
             investorProductsUseCase.getInvestorProductsDataState(token)
@@ -38,13 +42,13 @@ class InvestorProductsViewModel @Inject constructor(
                                 // Maybe I should just pass the entire investorProducts cause this is weird
                             )
                         }
-                        is InvestorProductsDataState.Error -> {
+                        is InvestorProductsDataState.AuthError -> {
                             InvestorProductsViewState.ShowAuthError(
                                 investorProductsDataState.errorMessage,
                                 investorProductsDataState.errorCode
                             )
                         }
-                        is InvestorProductsDataState.UnknownError -> {
+                        is InvestorProductsDataState.GenericError -> {
                             InvestorProductsViewState.ShowGenericError(
                                 investorProductsDataState.errorMessage,
                                 investorProductsDataState.errorCode
@@ -68,6 +72,10 @@ class InvestorProductsViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Return a payment view state to the viewmodel which will contain either emit success or an error state
+     * based on the data state from the use case
+     */
     fun makePayment(token: String, moneybox: Double, amount: Int, investorProductId: Int) {
         disposables.add(
             investorProductsUseCase.makeOneOffPayment(token, moneybox, amount, investorProductId).observeOn(

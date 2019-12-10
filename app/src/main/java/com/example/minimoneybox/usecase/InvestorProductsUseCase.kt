@@ -13,6 +13,9 @@ class InvestorProductsUseCase @Inject constructor(
     private val productsRepository: ProductsRepository
 ) {
 
+    /**
+     * Return a data state to the viewmodel which will contain either a success or an error state (auth / generic error)
+     */
     fun getInvestorProductsDataState(token: String): Observable<InvestorProductsDataState> {
         return productsRepository.getInvestorProducts(token)
             .map<InvestorProductsDataState> { products ->
@@ -20,16 +23,19 @@ class InvestorProductsUseCase @Inject constructor(
             }.doOnError { error ->
                 if (error is HttpException) {
                     if (error.code() == 401) {
-                        InvestorProductsDataState.Error(R.string.session_expired_error, error.code())
+                        InvestorProductsDataState.AuthError(R.string.session_expired_error, error.code())
                     }
                 } else {
                     // Not sure what error
-                    InvestorProductsDataState.UnknownError(error.message, 0)
+                    InvestorProductsDataState.GenericError(error.message, 0)
                 }
 
             }
     }
 
+    /**
+     * Return a data state to the viewmodel which will contain either a success or an error state (auth / generic error)
+     */
     fun makeOneOffPayment(
         token: String,
         moneybox: Double,

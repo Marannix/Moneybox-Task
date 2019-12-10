@@ -20,6 +20,10 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.saving_plan_layout.view.*
 
+/**
+ * A dashboard screen which display the three different investment plans
+ * Stocks & Shares ISA, Lifetime ISA and General Investment Account
+ */
 class DashboardFragment : BaseFragment() {
 
     interface OnProductsSelectedListener {
@@ -76,6 +80,9 @@ class DashboardFragment : BaseFragment() {
         viewmodel!!.getInvestorProductsInformation(userPreference.getToken())
     }
 
+    /**
+     * Since I am using an include for the layouts, I'll need to find them manually and update them as necessary
+     */
     private fun findLayouts() {
         isaLayout = view!!.findViewById(R.id.stockAndShareLayout)
         giaLayout = view!!.findViewById(R.id.generalInvestmentAccountLayout)
@@ -83,6 +90,9 @@ class DashboardFragment : BaseFragment() {
         errorAuthLayout = view!!.findViewById(R.id.errorAuthLayout)
     }
 
+    /**
+     * The UI is updated based on the view state emitted from the viewmodel
+     */
     private fun subscribeToProductsViewState() {
         viewmodel!!.viewState.observe(this, Observer { productsViewState ->
             when (productsViewState) {
@@ -161,6 +171,10 @@ class DashboardFragment : BaseFragment() {
         }
     }
 
+    /**
+     * Display an error screen which informs the user that their session has expired
+     * and will need to relaunch the application
+     */
     private fun showAuthExpiredError() {
         isaLayout.visibility = View.INVISIBLE
         giaLayout.visibility = View.INVISIBLE

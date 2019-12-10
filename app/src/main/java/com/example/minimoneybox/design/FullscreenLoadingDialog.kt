@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import com.example.minimoneybox.R
 
+// A loading dialog is shown to indicate to the user something is happening in the background
 class FullscreenLoadingDialog(context: Context) : Dialog(context, R.style.FullscreenLoading) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

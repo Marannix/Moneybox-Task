@@ -20,6 +20,9 @@ import kotlinx.android.synthetic.main.fragment_investment.*
 
 private const val ARG_PRODUCTS = "products"
 
+/**
+ * A investment screen which gives the user the option to add more money to their moneybox
+ */
 class InvestmentFragment : BaseFragment() {
 
     private lateinit var products: ProductResponses
@@ -75,6 +78,9 @@ class InvestmentFragment : BaseFragment() {
         }
     }
 
+    /**
+     * The UI is updated based on the view state emitted from the viewmodel
+     */
     private fun subscribeToViewState() {
         viewmodel.paymentViewState.observe(this, Observer { viewstate ->
             when (viewstate) {
@@ -102,6 +108,9 @@ class InvestmentFragment : BaseFragment() {
         })
     }
 
+    /**
+     * After a successful one off payment, the user is return to the dashboard
+     */
     private fun returnToDashboard() {
         // Added a delay to simulate updating
         val handler = Handler()

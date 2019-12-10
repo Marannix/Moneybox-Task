@@ -9,6 +9,9 @@ class UserUseCase @Inject constructor(
     private val usersRepository: UsersRepository
 ) {
 
+    /**
+     * Return a data state to the viewmodel which will contain either a success or an error state (auth / generic error)
+     */
     fun getUserDataState(email: String, password: String): Observable<UserDataState> {
         return usersRepository.getUsers(email, password)
             .map<UserDataState> { user ->

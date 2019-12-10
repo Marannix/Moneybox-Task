@@ -16,6 +16,10 @@ class UsersViewModel @Inject constructor(
     private val disposables = CompositeDisposable()
     val viewState = MutableLiveData<UserViewState>()
 
+    /**
+     * Return a user view state to the viewmodel which will contain either emit success or an error state
+     * based on the data state from the use case
+     */
     fun getUserInformation(email: String, password: String) {
         disposables.add(
             userUseCase.getUserDataState(email, password)
