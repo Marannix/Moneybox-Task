@@ -23,7 +23,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Strings related to dashboard -->
-    <string name="total_plan_label">Total Plan Value: %s</string>
+    <string name="hello_user_full_name">Hello %s!</string>
+    <string name="total_plan_label">Total Plan Value</string>
+    <string name="total_plan_label_with_value">Total Plan Value: %s</string>
     <string name="plan_value_label">Plan Value:</string>
     <string name="money_box_label">Moneybox:</string>
 

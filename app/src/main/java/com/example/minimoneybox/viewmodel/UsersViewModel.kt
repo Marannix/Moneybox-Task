@@ -30,22 +30,11 @@ class UsersViewModel @Inject constructor(
                         }
                     }
                 }.doOnSubscribe { viewState.value = UserViewState.Loading }
-                .subscribe {
-                    this.viewState.value = it
+                .subscribe {viewState ->
+                    this.viewState.value = viewState
                 }
         )
     }
-
-//    fun validateEmailCredentials(
-//        email: String,
-//        password: String
-//    ): Single<Pair<FormValidator.ValidationResult, FormValidator.ValidationResult>> {
-//        return Single.fromCallable {
-//            val emailValidation = formValidator.validateEmail(email)
-//            val passwordValidation = formValidator.validatePassword(password)
-//            Pair(emailValidation, passwordValidation)
-//        }
-//    }
 
     override fun onCleared() {
         super.onCleared()

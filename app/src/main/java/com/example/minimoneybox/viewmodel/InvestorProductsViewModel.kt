@@ -39,34 +39,40 @@ class InvestorProductsViewModel @Inject constructor(
                             )
                         }
                         is InvestorProductsDataState.Error -> {
-                            InvestorProductsViewState.ShowError(investorProductsDataState.errorMessage, investorProductsDataState.errorCode)
+                            InvestorProductsViewState.ShowError(
+                                investorProductsDataState.errorMessage,
+                                investorProductsDataState.errorCode
+                            )
                         }
                         is InvestorProductsDataState.UnknownError -> {
-                            InvestorProductsViewState.ShowUnknownError(investorProductsDataState.errorMessage, investorProductsDataState.errorCode)
+                            InvestorProductsViewState.ShowUnknownError(
+                                investorProductsDataState.errorMessage,
+                                investorProductsDataState.errorCode
+                            )
                         }
                     }
                 }.doOnSubscribe { viewState.value = InvestorProductsViewState.Loading }
-                .subscribe({
-                    this.viewState.value = it
-                }, {error ->
+                .subscribe({viewState ->
+                    this.viewState.value = viewState
+                }, { error ->
                     //Added this to prevent crashing when device goes offline
                     if (error is HttpException) {
                         if (error.code() == 401) {
-                            this.viewState.value = InvestorProductsViewState.ShowError(R.string.session_expired_error, error.code())
+                            this.viewState.value =
+                                InvestorProductsViewState.ShowError(R.string.session_expired_error, error.code())
                         }
                     } else {
-                        // Not sure what error
-                        this.viewState.value =  InvestorProductsViewState.ShowUnknownError(error.message, 0)
+                        this.viewState.value = InvestorProductsViewState.ShowUnknownError(error.message, 0)
                     }
-
-//                    this.viewState.value = InvestorProductsViewState.ShowUnknownError(it.message, 0)
                 })
         )
     }
 
     fun makePayment(token: String, moneybox: Double, amount: Int, investorProductId: Int) {
         disposables.add(
-            investorProductsUseCase.makeOneOffPayment(token, moneybox, amount, investorProductId).observeOn(AndroidSchedulers.mainThread())
+            investorProductsUseCase.makeOneOffPayment(token, moneybox, amount, investorProductId).observeOn(
+                AndroidSchedulers.mainThread()
+            )
                 .map { datastate ->
                     return@map when (datastate) {
                         is InvestedMoneyboxDataState.Success -> {
@@ -77,8 +83,8 @@ class InvestorProductsViewModel @Inject constructor(
                         }
                     }
                 }.doOnSubscribe { paymentViewState.value = InvestedMoneyboxViewState.Loading }
-                .subscribe({
-                    this.paymentViewState.value = it
+                .subscribe({ viewState ->
+                    this.paymentViewState.value = viewState
                 }, {
                     //Added this to prevent crashing when device goes offline
                     this.paymentViewState.value = InvestedMoneyboxViewState.ShowError(it.message)

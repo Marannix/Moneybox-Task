@@ -4,6 +4,8 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
 
+const val TEN_POUND_PRICE = 10
+
 object PriceUtils {
     fun calculatePriceString(price: Double) : String {
         val locale = Locale.getDefault()

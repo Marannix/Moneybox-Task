@@ -73,19 +73,19 @@ class LoginFragment : BaseFragment() {
 
     private fun login() {
         userViewModel.getUserInformation(et_email.text.toString(), et_password.text.toString())
-        userViewModel.viewState.observe(this, Observer {
-            when (it) {
+        userViewModel.viewState.observe(this, Observer {viewstate ->
+            when (viewstate) {
                 UserViewState.Loading -> {
                     loadingDialog.show()
                 }
                 is UserViewState.ShowUser -> {
                     loadingDialog.dismiss()
-                    storeUserInformation(it.user.session.bearerToken)
+                    storeUserInformation(viewstate.user.session.bearerToken)
                     listener?.onLoginSuccess()
                 }
                 is UserViewState.ShowError -> {
                     loadingDialog.dismiss()
-                    Snackbar.make(this.view!!, it.errorMessage.toString(), Snackbar.LENGTH_LONG)
+                    Snackbar.make(this.view!!, viewstate.errorMessage.toString(), Snackbar.LENGTH_LONG)
                         .show()
                 }
             }

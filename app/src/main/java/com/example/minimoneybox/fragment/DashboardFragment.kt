@@ -88,9 +88,8 @@ class DashboardFragment : BaseFragment() {
                 }
                 is InvestorProductsViewState.ShowProducts -> {
                     loadingDialog.dismiss()
-                    // TODO: Improve the way I handle text
                     totalPlan.text = getString(
-                        R.string.total_plan_label,
+                        R.string.total_plan_label_with_value,
                         PriceUtils.calculatePriceString(productsViewState.totalPlanValue)
                     )
                     setupProductsLabel(productsViewState)

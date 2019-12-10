@@ -3,17 +3,16 @@ package com.example.minimoneybox.fragment
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.minimoneybox.R
 import com.example.minimoneybox.data.products.ProductResponses
 import com.example.minimoneybox.design.FullscreenLoadingDialog
 import com.example.minimoneybox.state.InvestedMoneyboxViewState
 import com.example.minimoneybox.utils.PriceUtils
+import com.example.minimoneybox.utils.TEN_POUND_PRICE
 import com.example.minimoneybox.viewmodel.InvestorProductsViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_investment.*
 
 
@@ -43,10 +42,6 @@ class InvestmentFragment : BaseFragment() {
             setCanceledOnTouchOutside(false)
         }
     }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(com.example.minimoneybox.R.layout.fragment_investment, container, false)
-    }
     
     override fun onStart() {
         super.onStart()
@@ -60,8 +55,8 @@ class InvestmentFragment : BaseFragment() {
     private fun display() {
         investmentName.text = products.products.friendlyName
 
-        investmentPlanValueLabel.text = "Plan Value:"
-        investmentMoneyBoxLabel.text = "Money Box:"
+        investmentPlanValueLabel.text = getString(R.string.total_plan_label)
+        investmentMoneyBoxLabel.text = getString(R.string.money_box_label)
 
         investmentPlanValue.text = PriceUtils.calculatePriceString(products.planValue)
         investmentMoneyBox.text = PriceUtils.calculatePriceString(products.moneyBox)
@@ -70,7 +65,7 @@ class InvestmentFragment : BaseFragment() {
 
     private fun setPaymentListener() {
         investmentAddMoney.setOnClickListener {
-            viewmodel.makePayment(userPreference.getToken(), products.moneyBox, 10, products.id)
+            viewmodel.makePayment(userPreference.getToken(), products.moneyBox, TEN_POUND_PRICE, products.id)
         }
     }
 
@@ -79,7 +74,6 @@ class InvestmentFragment : BaseFragment() {
             when (viewstate) {
                 is InvestedMoneyboxViewState.Loading -> {
                     loadingDialog.show()
-                    Toast.makeText(requireContext(), "Making payment", Toast.LENGTH_SHORT).show()
                 }
                 is InvestedMoneyboxViewState.ShowUpdatedMoneyBox -> {
                     viewmodel.paymentViewState.postValue(null)
@@ -88,7 +82,8 @@ class InvestmentFragment : BaseFragment() {
                 }
                 is InvestedMoneyboxViewState.ShowError -> {
                     loadingDialog.dismiss()
-                    Toast.makeText(requireContext(), viewstate.errorMessage, Toast.LENGTH_SHORT).show()
+                    Snackbar.make(this.view!!, viewstate.errorMessage.toString(), Snackbar.LENGTH_LONG)
+                        .show()
                 }
             }
         })
@@ -98,8 +93,6 @@ class InvestmentFragment : BaseFragment() {
         // Added a delay to simulate updating
         val handler = Handler()
         handler.postDelayed({ loadingDialog.dismiss()}, 4000)
-        // TODO: Fix current bug, unable to go back into InvestmentFragment
-
         activity!!.onBackPressed()
     }
 
