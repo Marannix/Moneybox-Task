@@ -66,7 +66,7 @@ class DashboardFragment : BaseFragment() {
 
     private fun setUserFullName() {
         if (userPreference.getUserFullName().isNotEmpty()) {
-            chosenName.text = "Hello ${userPreference.getUserFullName()}!"
+            chosenName.text = getString(R.string.hello_user_full_name, userPreference.getUserFullName())
         }
     }
 
@@ -89,8 +89,10 @@ class DashboardFragment : BaseFragment() {
                 is InvestorProductsViewState.ShowProducts -> {
                     loadingDialog.dismiss()
                     // TODO: Improve the way I handle text
-                    totalPlan.text =
-                        "Total Plan Value: ${PriceUtils.calculatePriceString(productsViewState.totalPlanValue)}"
+                    totalPlan.text = getString(
+                        R.string.total_plan_label,
+                        PriceUtils.calculatePriceString(productsViewState.totalPlanValue)
+                    )
                     setupProductsLabel(productsViewState)
                     setupProductsPlanValue(productsViewState)
                     setupProductsMoneybox(productsViewState)
@@ -103,7 +105,7 @@ class DashboardFragment : BaseFragment() {
                         Snackbar.make(this.view!!, getString(productsViewState.errorMessage), Snackbar.LENGTH_LONG)
                             .show()
                     } else {
-                        Toast.makeText(requireContext(), "Products: $productsViewState.errorMessage", Toast.LENGTH_SHORT)
+                        Snackbar.make(this.view!!, "Products: $productsViewState.errorMessage", Snackbar.LENGTH_LONG)
                             .show()
                     }
 
@@ -123,9 +125,9 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun setupProductsPlanValue(productsViewState: InvestorProductsViewState.ShowProducts) {
-        isaLayout.planValueLabel.text = "Plan Value:"
-        giaLayout.planValueLabel.text = "Plan Value:"
-        lisaLayout.planValueLabel.text = "Plan Value:"
+        isaLayout.planValueLabel.text = getString(R.string.plan_value_label)
+        giaLayout.planValueLabel.text = getString(R.string.plan_value_label)
+        lisaLayout.planValueLabel.text = getString(R.string.plan_value_label)
 
         isaLayout.planValueText.text = PriceUtils.calculatePriceString(productsViewState.isa.planValue)
         giaLayout.planValueText.text = PriceUtils.calculatePriceString(productsViewState.gia.planValue)
@@ -133,9 +135,9 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun setupProductsMoneybox(productsViewState: InvestorProductsViewState.ShowProducts) {
-        isaLayout.moneyBoxLabel.text = "Moneybox:"
-        giaLayout.moneyBoxLabel.text = "Moneybox:"
-        lisaLayout.moneyBoxLabel.text = "Moneybox:"
+        isaLayout.moneyBoxLabel.text = getString(R.string.money_box_label)
+        giaLayout.moneyBoxLabel.text = getString(R.string.money_box_label)
+        lisaLayout.moneyBoxLabel.text = getString(R.string.money_box_label)
 
         isaLayout.moneyBoxText.text = PriceUtils.calculatePriceString(productsViewState.isa.moneyBox)
         giaLayout.moneyBoxText.text = PriceUtils.calculatePriceString(productsViewState.gia.moneyBox)

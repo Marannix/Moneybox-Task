@@ -4,8 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="@dimen/saving_plan_layout_card_corner_radius"
+        app:cardElevation="@dimen/saving_plan_layout_card_elevation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,7 +17,6 @@
             android:layout_margin="@dimen/margin_default"
     >
 
-        <!-- TODO: Extract shared elements into style if necessary -->
         <TextView
                 android:id="@+id/planTitle"
                 android:layout_width="0dp"

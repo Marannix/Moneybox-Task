@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
@@ -13,6 +12,7 @@ import com.example.minimoneybox.design.FullscreenLoadingDialog
 import com.example.minimoneybox.state.UserViewState
 import com.example.minimoneybox.utils.FormValidator
 import com.example.minimoneybox.viewmodel.UsersViewModel
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
@@ -85,7 +85,8 @@ class LoginFragment : BaseFragment() {
                 }
                 is UserViewState.ShowError -> {
                     loadingDialog.dismiss()
-                    Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
+                    Snackbar.make(this.view!!, it.errorMessage.toString(), Snackbar.LENGTH_LONG)
+                        .show()
                 }
             }
         })

@@ -6,4 +6,13 @@
     <dimen name="line_height_button_primary">20sp</dimen>
     <dimen name="margin_default">16dp</dimen>
 
+    <dimen name="padding_default">12dp</dimen>
+
+    <dimen name="money_box_logo_margin_top">32dp</dimen>
+    <dimen name="email_text_input_margin_top">32dp</dimen>
+
+    <dimen name="saving_plan_layout_card_corner_radius">20dp</dimen>
+    <dimen name="saving_plan_layout_card_elevation">4dp</dimen>
+
+
 </resources>

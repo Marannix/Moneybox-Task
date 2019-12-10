@@ -9,12 +9,27 @@
         tools:context=".fragment.DashboardFragment">
 
     <!-- TODO: Add gutters to make it look nicer on tablet -->
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/dashboard_start_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.0"
+    />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/dashboard_end_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="1"
+    />
 
     <TextView
             android:id="@+id/chosenName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/margin_default"
             style="@style/DashboardTextStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,8 +41,8 @@
             android:id="@+id/totalPlan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="10dp"
+            android:layout_margin="@dimen/margin_default"
+            android:paddingBottom="@dimen/padding_default"
             style="@style/DashboardTextStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,9 +53,9 @@
     <include
             android:id="@+id/stockAndShareLayout"
             layout="@layout/saving_plan_layout"
-            android:layout_margin="8dp"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="@dimen/margin_default"
             app:layout_constraintHeight_percent="0.18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,9 +66,9 @@
     <include
             android:id="@+id/generalInvestmentAccountLayout"
             layout="@layout/saving_plan_layout"
-            android:layout_margin="8dp"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="@dimen/margin_default"
             app:layout_constraintHeight_percent="0.18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,9 +78,9 @@
     <include
             android:id="@+id/lifetimeISALayout"
             layout="@layout/saving_plan_layout"
-            android:layout_margin="8dp"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="@dimen/margin_default"
             app:layout_constraintHeight_percent="0.18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
