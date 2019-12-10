@@ -24,13 +24,13 @@
 
     <!-- Strings related to dashboard -->
     <string name="hello_user_full_name">Hello %s!</string>
-    <string name="total_plan_label">Total Plan Value</string>
     <string name="total_plan_label_with_value">Total Plan Value: %s</string>
     <string name="plan_value_label">Plan Value:</string>
     <string name="money_box_label">Moneybox:</string>
 
     <!-- Strings related to investment deposit -->
     <string name="action_add_money">Add £10</string>
+    <string name="total_plan_label">Total Plan:</string>
 
     <!-- Strings related to error -->
     <string name="session_expired_error">Your session has expired. Please close the app and log in again.</string>

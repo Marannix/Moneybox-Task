@@ -99,7 +99,7 @@ class InvestmentFragment : BaseFragment() {
     private fun returnToDashboard() {
         // Added a delay to simulate updating
         val handler = Handler()
-        handler.postDelayed({ loadingDialog.dismiss()}, 4000)
+        handler.postDelayed({ loadingDialog.dismiss()}, 3000)
         activity!!.onBackPressed()
     }
 
