@@ -109,6 +109,7 @@ class DashboardFragment : BaseFragment() {
 
                 }
                 is InvestorProductsViewState.ShowUnknownError -> {
+                    loadingDialog.dismiss()
                     Toast.makeText(requireContext(), productsViewState.errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }

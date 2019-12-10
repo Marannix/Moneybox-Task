@@ -139,7 +139,7 @@ class LoginFragment : BaseFragment() {
 
     private fun storeUserInformation(bearerToken: String) {
         userPreference.setUserFullName(et_name.text.toString())
-        userPreference.setToken("Bearer $bearerToken")
+        userPreference.setToken(getString(R.string.auth_bearer, bearerToken))
         userPreference.setUserHasLoggedIn(true)
     }
 
