@@ -26,4 +26,11 @@
     <!-- Strings related to error -->
     <string name="session_expired_error">Your session has expired. Please close the app and log in again.</string>
 
+    <!-- Strings related to login error-->
+    <string name="empty_email">The email address you entered is not valid.</string>
+    <string name="email_invalid">The email address you entered is not valid.</string>
+    <string name="password_invalid">Your password must be at least 10 characters and include one number, one upper case
+        character and one lower case character.
+    </string>
+
 </resources>

@@ -104,17 +104,40 @@ class LoginFragment : BaseFragment() {
 
     private fun validUserInformation(email: String): Boolean {
         return when {
-            formValidator.validateEmail(email) == FormValidator.ValidationResult.VALID -> true
-            formValidator.validateEmail(email) == FormValidator.ValidationResult.INVALID -> false
-            else -> false
+            formValidator.validateEmail(email) == FormValidator.ValidationResult.VALID -> {
+                //Removes empty space created by error
+                til_email.isErrorEnabled = false
+                til_email.error = null
+                true
+            }
+            formValidator.validateEmail(email) == FormValidator.ValidationResult.EMPTY -> {
+                til_email.error = getString(R.string.empty_email)
+                false
+            }
+            else -> {
+                // Invalid
+                til_email.error = getString(R.string.email_invalid)
+                false
+            }
         }
     }
 
     private fun validPasswordInformation(password: String): Boolean {
         return when {
-            formValidator.validatePassword(password) == FormValidator.ValidationResult.VALID -> true
-            formValidator.validatePassword(password) == FormValidator.ValidationResult.INVALID -> false
-            else -> false
+            formValidator.validatePassword(password) == FormValidator.ValidationResult.VALID -> {
+                //Removes empty space created by error
+                til_password.isErrorEnabled = false
+                til_password.error = null
+                true
+            }
+            formValidator.validatePassword(password) == FormValidator.ValidationResult.EMPTY -> {
+                til_password.error = getString(R.string.password_invalid)
+                false
+            }
+            else -> {
+                til_password.error = getString(R.string.password_invalid)
+                false
+            }
         }
     }
 

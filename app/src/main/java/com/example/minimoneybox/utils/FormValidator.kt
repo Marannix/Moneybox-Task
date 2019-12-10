@@ -2,7 +2,6 @@ package com.example.minimoneybox.utils
 
 import java.util.regex.Pattern
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class FormValidator @Inject constructor(){
 
@@ -14,9 +13,6 @@ class FormValidator @Inject constructor(){
 
     private var EMAIL_PATTERN =
         "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
-
-    private var PASSWORD_PATTERN =
-        "^[a-zA-Z@#$%]\\w{5,19}$"
 
     fun validateEmail(email: String): ValidationResult {
         return when {
@@ -38,9 +34,8 @@ class FormValidator @Inject constructor(){
         return Pattern.matches(EMAIL_PATTERN, email)
     }
 
+    //Noticed the api returns a password error when no password has been sent to the backend
     private fun checkPasswordIsValid(password: String): Boolean {
-        // Password needs to have uppercase etc...
-//        return Pattern.matches(PASSWORD_PATTERN, password) && password.trim().length >= 5
-        return password.trim().length >= 5
+        return password.trim().isNotEmpty()
     }
 }
