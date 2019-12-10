@@ -87,7 +87,13 @@ class InvestmentFragment : BaseFragment() {
                     viewmodel.getInvestorProductsInformation(userPreference.getToken())
                     returnToDashboard()
                 }
-                is InvestedMoneyboxViewState.ShowError -> {
+                is InvestedMoneyboxViewState.ShowAuthError -> {
+                    loadingDialog.dismiss()
+                    Snackbar.make(this.view!!, viewstate.errorMessage.toString(), Snackbar.LENGTH_LONG)
+                        .show()
+                }
+
+                is InvestedMoneyboxViewState.ShowGenericError -> {
                     loadingDialog.dismiss()
                     Snackbar.make(this.view!!, viewstate.errorMessage.toString(), Snackbar.LENGTH_LONG)
                         .show()

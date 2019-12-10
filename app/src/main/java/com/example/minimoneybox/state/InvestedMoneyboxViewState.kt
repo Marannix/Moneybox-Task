@@ -5,5 +5,6 @@ import com.example.minimoneybox.data.products.InvestedMoneyboxResponse
 sealed class InvestedMoneyboxViewState {
     object Loading : InvestedMoneyboxViewState()
     data class ShowUpdatedMoneyBox(val response: InvestedMoneyboxResponse) : InvestedMoneyboxViewState()
-    data class ShowError(val errorMessage: String?) : InvestedMoneyboxViewState()
+    data class ShowAuthError(val errorMessage: Int, val errorCode: Int?) : InvestedMoneyboxViewState()
+    data class ShowGenericError(val errorMessage: String?, val errorCode: Int?) : InvestedMoneyboxViewState()
 }

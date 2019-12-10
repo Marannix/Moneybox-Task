@@ -100,7 +100,7 @@ class DashboardFragment : BaseFragment() {
                     setupProductsMoneybox(productsViewState)
                     setupListeners(productsViewState)
                 }
-                is InvestorProductsViewState.ShowError -> {
+                is InvestorProductsViewState.ShowAuthError -> {
                     loadingDialog.dismiss()
                     // This is a bit hacky, the best way I would I loved to get the response error body that the server returns
                     // but its a bit complicated for a small app
@@ -115,7 +115,7 @@ class DashboardFragment : BaseFragment() {
                     }
 
                 }
-                is InvestorProductsViewState.ShowUnknownError -> {
+                is InvestorProductsViewState.ShowGenericError -> {
                     loadingDialog.dismiss()
                     Toast.makeText(requireContext(), productsViewState.errorMessage, Toast.LENGTH_SHORT).show()
                 }

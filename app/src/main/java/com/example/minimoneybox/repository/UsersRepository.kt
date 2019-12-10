@@ -18,7 +18,7 @@ class UsersRepository @Inject constructor(
        return getUserFromApi(email, password).toObservable()
     }
 
-    // Can only get user from api so no need to check agaisnt db.... unless the user is already signed in!!! :OOO
+    // Can only get user from api so no need to check against db.... unless the user is already signed in!!! :OOO
     private fun getUserFromApi(email: String, password: String): Single<UserResponse> {
         return userApi.logInUser(email, password, "ANYTHING")
             .doOnSuccess { user ->

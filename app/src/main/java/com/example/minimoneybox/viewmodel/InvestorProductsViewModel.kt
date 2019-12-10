@@ -39,13 +39,13 @@ class InvestorProductsViewModel @Inject constructor(
                             )
                         }
                         is InvestorProductsDataState.Error -> {
-                            InvestorProductsViewState.ShowError(
+                            InvestorProductsViewState.ShowAuthError(
                                 investorProductsDataState.errorMessage,
                                 investorProductsDataState.errorCode
                             )
                         }
                         is InvestorProductsDataState.UnknownError -> {
-                            InvestorProductsViewState.ShowUnknownError(
+                            InvestorProductsViewState.ShowGenericError(
                                 investorProductsDataState.errorMessage,
                                 investorProductsDataState.errorCode
                             )
@@ -59,10 +59,10 @@ class InvestorProductsViewModel @Inject constructor(
                     if (error is HttpException) {
                         if (error.code() == 401) {
                             this.viewState.value =
-                                InvestorProductsViewState.ShowError(R.string.session_expired_error, error.code())
+                                InvestorProductsViewState.ShowAuthError(R.string.session_expired_error, error.code())
                         }
                     } else {
-                        this.viewState.value = InvestorProductsViewState.ShowUnknownError(error.message, 0)
+                        this.viewState.value = InvestorProductsViewState.ShowGenericError(error.message, 0)
                     }
                 })
         )
@@ -79,7 +79,7 @@ class InvestorProductsViewModel @Inject constructor(
                             InvestedMoneyboxViewState.ShowUpdatedMoneyBox(datastate.response)
                         }
                         is InvestedMoneyboxDataState.Error -> {
-                            InvestedMoneyboxViewState.ShowError(datastate.errorMessage)
+                            InvestedMoneyboxViewState.ShowAuthError(R.string.generic_error, 0)
                         }
                     }
                 }.doOnSubscribe { paymentViewState.value = InvestedMoneyboxViewState.Loading }
@@ -89,11 +89,12 @@ class InvestorProductsViewModel @Inject constructor(
                     //Added this to prevent crashing when device goes offline
                     if (error is HttpException) {
                         if (error.code() == 401) {
-                            this.viewState.value =
-                                InvestorProductsViewState.ShowError(R.string.session_expired_error, error.code())
+                            this.paymentViewState.value =
+                                InvestedMoneyboxViewState.ShowAuthError(R.string.session_expired_error, error.code())
                         }
                     } else {
-                        this.viewState.value = InvestorProductsViewState.ShowUnknownError(error.message, 0)
+                        //
+                        this.paymentViewState.value = InvestedMoneyboxViewState.ShowGenericError(error.message, 0)
                     }
                 })
 

@@ -36,7 +36,7 @@
 
     <!-- Strings related to error -->
     <string name="session_expired_error">Your session has expired. Please close the app and log in again.</string>
-    <string name="generic_error">Something gone terribly wrong</string>
+    <string name="generic_error">Something has gone terribly wrong. Check your internet.</string>
 
     <!-- Strings related to login error-->
     <string name="empty_email">The email address you entered is not valid.</string>
