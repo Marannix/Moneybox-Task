@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
 import com.example.minimoneybox.R
 import com.example.minimoneybox.sharedpreferences.PreferencesHelper
+import com.example.minimoneybox.utils.NetworkUtil
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -15,6 +16,9 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var userPreference: PreferencesHelper
+
+    @Inject
+    lateinit var networkUtil: NetworkUtil
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         AndroidInjection.inject(this)

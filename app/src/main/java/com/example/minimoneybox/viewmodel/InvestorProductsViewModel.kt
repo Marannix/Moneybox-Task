@@ -85,9 +85,16 @@ class InvestorProductsViewModel @Inject constructor(
                 }.doOnSubscribe { paymentViewState.value = InvestedMoneyboxViewState.Loading }
                 .subscribe({ viewState ->
                     this.paymentViewState.value = viewState
-                }, {
+                }, {error ->
                     //Added this to prevent crashing when device goes offline
-                    this.paymentViewState.value = InvestedMoneyboxViewState.ShowError(it.message)
+                    if (error is HttpException) {
+                        if (error.code() == 401) {
+                            this.viewState.value =
+                                InvestorProductsViewState.ShowError(R.string.session_expired_error, error.code())
+                        }
+                    } else {
+                        this.viewState.value = InvestorProductsViewState.ShowUnknownError(error.message, 0)
+                    }
                 })
 
         )

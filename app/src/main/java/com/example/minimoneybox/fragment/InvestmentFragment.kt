@@ -82,6 +82,7 @@ class InvestmentFragment : BaseFragment() {
                     loadingDialog.show()
                 }
                 is InvestedMoneyboxViewState.ShowUpdatedMoneyBox -> {
+                    loadingDialog.dismiss()
                     viewmodel.paymentViewState.postValue(null)
                     viewmodel.getInvestorProductsInformation(userPreference.getToken())
                     returnToDashboard()

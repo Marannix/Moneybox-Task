@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class InvestorProducts(
+class InvestorProductsResponse(
     @SerializedName("TotalPlanValue")
     val totalPlanValue: Double,
     @SerializedName("ProductResponses")

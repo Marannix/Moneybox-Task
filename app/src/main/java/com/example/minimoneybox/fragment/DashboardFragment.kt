@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
@@ -42,6 +43,7 @@ class DashboardFragment : BaseFragment() {
     private lateinit var isaLayout: MaterialCardView
     private lateinit var giaLayout: MaterialCardView
     private lateinit var lisaLayout: MaterialCardView
+    private lateinit var errorAuthLayout: ConstraintLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
@@ -78,6 +80,7 @@ class DashboardFragment : BaseFragment() {
         isaLayout = view!!.findViewById(R.id.stockAndShareLayout)
         giaLayout = view!!.findViewById(R.id.generalInvestmentAccountLayout)
         lisaLayout = view!!.findViewById(R.id.lifetimeISALayout)
+        errorAuthLayout = view!!.findViewById(R.id.errorAuthLayout)
     }
 
     private fun subscribeToProductsViewState() {
@@ -99,12 +102,15 @@ class DashboardFragment : BaseFragment() {
                 }
                 is InvestorProductsViewState.ShowError -> {
                     loadingDialog.dismiss()
+                    // This is a bit hacky, the best way I would I loved to get the response error body that the server returns
+                    // but its a bit complicated for a small app
                     if (productsViewState.errorCode == 401) {
                         userPreference.setUserHasLoggedIn(false)
+                        showAuthExpiredError()
                         Snackbar.make(this.view!!, getString(productsViewState.errorMessage), Snackbar.LENGTH_LONG)
                             .show()
                     } else {
-                        Snackbar.make(this.view!!, "Products: $productsViewState.errorMessage", Snackbar.LENGTH_LONG)
+                        Snackbar.make(this.view!!, productsViewState.errorMessage, Snackbar.LENGTH_LONG)
                             .show()
                     }
 
@@ -153,5 +159,13 @@ class DashboardFragment : BaseFragment() {
         lisaLayout.nextButton.setOnClickListener {
             listener?.onLisaSelected(productsViewState.lisa)
         }
+    }
+
+    private fun showAuthExpiredError() {
+        isaLayout.visibility = View.INVISIBLE
+        giaLayout.visibility = View.INVISIBLE
+        lisaLayout.visibility = View.INVISIBLE
+        totalPlan.visibility = View.INVISIBLE
+        errorAuthLayout.visibility = View.VISIBLE
     }
 }

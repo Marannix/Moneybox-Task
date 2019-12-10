@@ -18,6 +18,7 @@
     <!--    Lottie files-->
     <string name="lottie_owl_coin_shower">owl_coin_shower.json</string>
     <string name="lottie_loading_progress">loading_progress.json</string>
+    <string name="lottie_cat_error">cat_error.json</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -27,6 +28,7 @@
     <string name="total_plan_label_with_value">Total Plan Value: %s</string>
     <string name="plan_value_label">Plan Value:</string>
     <string name="money_box_label">Moneybox:</string>
+    <string name="logout_error_message">LOGOUT</string>
 
     <!-- Strings related to investment deposit -->
     <string name="action_add_money">Add £10</string>
@@ -42,5 +44,6 @@
     <string name="password_invalid">Your password must be at least 10 characters and include one number, one upper case
         character and one lower case character.
     </string>
+
 
 </resources>

@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.minimoneybox.api.ProductsApi
 import com.example.minimoneybox.data.ProductsDao
 import com.example.minimoneybox.data.products.InvestedMoneyboxResponse
-import com.example.minimoneybox.data.products.InvestorProducts
+import com.example.minimoneybox.data.products.InvestorProductsResponse
 import com.example.minimoneybox.data.products.ProductResponses
 import com.example.minimoneybox.data.products.Products
 import com.example.minimoneybox.data.user.UserResponse
@@ -37,13 +37,12 @@ class InvestorProductsUseCaseTest {
     private val productsRepository by lazy { ProductsRepository(dao, api) }
     private val productUseCase by lazy { InvestorProductsUseCase(productsRepository) }
 
-    private lateinit var productResponse: InvestorProducts
+    private lateinit var productResponse: InvestorProductsResponse
     private lateinit var moneyBoxResponse: InvestedMoneyboxResponse
     private lateinit var userResponse: UserResponse
 
     private lateinit var investorProductsDatastate: InvestorProductsDataState
     private lateinit var expectedInvestorProductsSuccessState: InvestorProductsDataState.Success
-
     private lateinit var moneyboxDataState: InvestedMoneyboxDataState
     private lateinit var expectedMoneyboxSuccessState: InvestedMoneyboxDataState.Success
 
@@ -144,10 +143,9 @@ class InvestorProductsUseCaseTest {
         val response = UnitTestUtils.readJsonFile("investorproducts.json")
         val userFileResponse = UnitTestUtils.readJsonFile("user.json")
         val moneyBoxFileResponse = UnitTestUtils.readJsonFile("moneybox.json")
-        productResponse = GsonBuilder().create().fromJson(response, InvestorProducts::class.java)
+        productResponse = GsonBuilder().create().fromJson(response, InvestorProductsResponse::class.java)
         userResponse = GsonBuilder().create().fromJson(userFileResponse, UserResponse::class.java)
         moneyBoxResponse = GsonBuilder().create().fromJson(moneyBoxFileResponse, InvestedMoneyboxResponse::class.java)
-
     }
 
     private fun setExpectedStates() {

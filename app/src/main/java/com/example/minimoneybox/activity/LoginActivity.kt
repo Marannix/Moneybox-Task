@@ -10,7 +10,8 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        when (userPreference.hasUserLoggedIn()) {
+        // When there is no internet "log the user out"
+        when (userPreference.hasUserLoggedIn() && networkUtil.isNetworkAvailable()) {
             true -> launchDashboardActivity()
             false ->  launchLoginFragment()
         }
@@ -31,7 +32,4 @@ class LoginActivity : BaseActivity() {
         startActivity(intent)
         finish()
     }
-
-    //Fragment is created twice at launch? Replace fragment instead of adding to avoid duplicated fragment shown
-
 }
