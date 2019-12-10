@@ -3,6 +3,9 @@ package com.example.minimoneybox.fragment
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
@@ -31,6 +34,10 @@ class InvestmentFragment : BaseFragment() {
                 putParcelable(ARG_PRODUCTS, products)
             }
         }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_investment, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
